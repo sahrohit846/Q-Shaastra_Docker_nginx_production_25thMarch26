@@ -1,0 +1,320 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #111622;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Navbar */
+/* Base Styles */
+nav.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+nav h2.logo {
+  color: greenyellow;
+  font-size: 24px;
+  margin: 0;
+}
+
+nav h2.logo span {
+  color: yellow;
+}
+
+/* Nav items */
+.navbar-nav {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-nav li {
+  margin-left: 20px;
+}
+
+.navbar-nav li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.navbar-nav li a:hover {
+  color: #ffc107;
+}
+
+         /* Nav  Hover Animation  */
+        nav {
+          background: linear-gradient(to right, #007bff, #343a40);
+          color: white;
+          transition: background 0.5s ease;
+      }
+      
+      nav:hover {
+          background: linear-gradient(to right, #343a40, #007bff);
+      }
+      
+
+
+/* Hamburger menu (hidden by default) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar-nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: #222;
+    padding: 10px 0;
+  }
+
+  .navbar-nav.show {
+    display: flex;
+  }
+
+  .navbar-nav li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+
+.hero-content {
+  backdrop-filter: blur(5px);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-title span {
+  color: cyan;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  .hero-title {
+      font-size: 2rem;
+  }
+  .hero-subtitle {
+      font-size: 1rem;
+  }
+}
+
+/* Filter Section */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px auto;
+  padding: 10px;
+  max-width: 1000px;
+  text-align: center;
+}
+
+/* Labels */
+.filter-container label {
+  color: yellow;
+  font-size: 20px;
+  min-width: 160px;
+  text-align: left;
+}
+
+/* Dropdowns */
+.filter-container select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  background-color: #222;
+  color: cyan;
+  font-size: 16px;
+  border: 1px solid lightgreen;
+  min-width: 200px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .filter-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-container label,
+  .filter-container select {
+    width: 100%;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .filter-container select {
+    min-width: auto;
+  }
+}
+
+
+/* News Section */
+#news-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+}
+
+.news-card {
+  width: 90%;
+  max-width: 350px;
+  background-color: #1e1e1e;
+  margin: 15px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+}
+
+.news-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(229, 245, 6, 0.6);
+}
+
+.news-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.news-content {
+  padding: 15px;
+}
+
+.news-content h3 {
+  font-size: 1.2rem;
+  color: cyan;
+}
+
+.read-more {
+  display: inline-block;
+  margin-top: 10px;
+  color: yellow;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+.read-more:hover {
+  color: red;
+}
+
+/* No News Message */
+.no-news {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  opacity: 0.7;
+  color: white;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(to right, #007bff, #343a40);
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  margin-top: auto;
+  transition: background 0.5s ease;
+  position: relative;
+  bottom: 0;
+}
+
+footer:hover {
+  background: linear-gradient(to right, #343a40, #007bff);
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  footer {
+      padding: 15px 10px;
+      font-size: 0.9rem;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Nav sticky */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* footer sticky */
+footer {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+
+/* responsive for mobile device and all other small device  */
+
+        .responsive-label {
+          color: yellow;
+          font-size: 22px;
+          display: block; /* Ensures labels appear above the select elements on smaller screens */
+          margin-bottom: 5px;
+        }
+      
+        @media screen and (max-width: 600px) {
+          .responsive-label {
+            font-size: 18px; /* Decrease font size on small screens */
+            text-align: center; /* Center labels for better readability */
+          }
+      
+          select {
+            width: 100%; /* Make dropdowns full-width on small screens */
+            padding: 8px;
+          }
+        }

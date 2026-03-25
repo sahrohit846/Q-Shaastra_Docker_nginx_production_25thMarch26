@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% extends 'simulator.html' %}
+{% block result %}
+<div class="second container-fluid shadow mt-1" style="width: 100%">
+    <div class="container2 col-12" style="background-color: #f7f8fa">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="result left-part ml-1">
+                    <div class="bg-light p-3 text-center">
+                        <div class="bg-body-tertiary p-2 rounded text-center">
+                            <h3 class="underlined">Result</h3>
+                        </div>
+                    </div>
+                    <div class="matrix text-center">
+                        <img src="./../static/img/BarGraph.png" alt="Bar Graph" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="right-part mr-1">
+                    <div class="bg-light p-3">
+                        <div class="bg-body-tertiary p-2 rounded text-center">
+                            <h3 id="graphHeading" class="underlined">BlochSphere</h3>
+                        </div>
+                    </div>
+                    <div class="graph text-center">
+                        <img src="./../static/img/BlochF.png" alt="Bloch Sphere" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

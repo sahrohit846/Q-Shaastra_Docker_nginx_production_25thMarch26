@@ -1,0 +1,298 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forgot Email</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="{% static 'js/particles-config.js' %}"></script>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #080710;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .background {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        z-index: -1;
+      }
+
+      .shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.5;
+      }
+
+      .shape:first-child {
+        background: linear-gradient(#1845ad, #23a2f6);
+        width: 200px;
+        height: 200px;
+        left: -50px;
+        top: -50px;
+      }
+
+      .shape:last-child {
+        background: linear-gradient(to right, #ff512f, #f09819);
+        width: 200px;
+        height: 200px;
+        right: -50px;
+        bottom: -50px;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.13);
+        border-radius: 10px;
+        padding: 40px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+      }
+
+      h3 {
+        font-size: 28px;
+        color: greenyellow;
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-top: 15px;
+        font-size: 16px;
+        color: #ffffff;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
+
+      button {
+        margin-top: 30px;
+        width: 100%;
+        padding: 12px;
+        background-color: #ffffff;
+        color: #080710;
+        font-size: 16px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #f0f0f0;
+      }
+
+      .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+      }
+
+      .alert-error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      footer {
+        background-color: grey;
+        opacity: 0.7;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+      }
+
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          max-width: 90%;
+          padding: 30px;
+        }
+
+        h3 {
+          font-size: 24px;
+        }
+
+        input,
+        button {
+          padding: 10px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .container {
+          max-width: 95%;
+          padding: 20px;
+        }
+
+        h3 {
+          font-size: 20px;
+        }
+
+        input,
+        button {
+          padding: 8px;
+          font-size: 14px;
+        }
+
+        footer {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="particles-js"></div>
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+
+    <div class="container">
+      <h1 style="text-align: center">
+        <span style="color: #f09819">Quantum_Shaastra</span>
+      </h1>
+      <h3>Forgot Email ID</h3>
+
+      <form method="post">
+        <label for="email">Enter your Email</label>
+        <input
+          type="email"
+          placeholder="Enter your registered email"
+          id="email"
+          name="email"
+          required
+        />
+        {% csrf_token %}
+        {% if messages %}
+          {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+        {{ form.as_p }}
+        <button type="submit">Send Email</button>
+      </form>
+    </div>
+
+    <footer>
+      <p>Copyright &copy; CDAC-Patna | All rights reserved</p>
+    </footer>
+
+    <script>
+      particlesJS("particles-js", {
+        particles: {
+          number: { value: 80, density: { enable: true, value_area: 800 } },
+          color: { value: "#ffffff" },
+          shape: {
+            type: "circle",
+            stroke: { width: 0, color: "#000000" },
+            polygon: { nb_sides: 5 },
+          },
+          opacity: {
+            value: 0.5,
+            anim: { enable: false },
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: { enable: false },
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#ffffff",
+            opacity: 0.4,
+            width: 1,
+          },
+          move: {
+            enable: true,
+            speed: 6,
+            direction: "none",
+            random: false,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+          },
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
+            resize: true,
+          },
+          modes: {
+            grab: { distance: 400, line_linked: { opacity: 1 } },
+            bubble: {
+              distance: 400,
+              size: 40,
+              duration: 2,
+              opacity: 8,
+              speed: 3,
+            },
+            repulse: { distance: 200, duration: 0.4 },
+            push: { particles_nb: 4 },
+            remove: { particles_nb: 2 },
+          },
+        },
+        retina_detect: true,
+      });
+    </script>
+  </body>
+</html>

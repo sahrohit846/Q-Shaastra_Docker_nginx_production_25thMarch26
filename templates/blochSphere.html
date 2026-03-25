@@ -1,0 +1,11 @@
+# child.tmpl
+{% extends "simulator.html" %}
+{% block sphere %}<div class="blochSphere shadow d-flex flex-column ml-4" style="flex: 29%;">
+    <div class="bg-body-tertiary p-2 rounded text-center underlined fs-2 graphHeading fw-bold">
+
+        <u>BlochSphere</u>
+    </div>
+    <div class="graph text-center">
+        <img src="./../static/img/BlochF.png" alt="Bloch Sphere" style="height: auto;width: 35rem;">
+    </div>
+</div> {{ super() }}{% endblock %}

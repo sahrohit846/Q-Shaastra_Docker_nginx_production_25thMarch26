@@ -1,0 +1,1458 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Quantum-Shaastra</title>
+    
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Modern Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* CSS Variables for Enhanced Theme System */
+        :root {
+            /* Light Theme Colors - Enhanced for better visibility */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --text-accent: #3b82f6;
+            --text-accent-hover: #2563eb;
+            --text-gradient-start: #8b5cf6;
+            --text-gradient-end: #ec4899;
+            
+            --border-primary: #e2e8f0;
+            --border-secondary: #cbd5e1;
+            --shadow-primary: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-accent: 0 10px 15px -3px rgba(59, 130, 246, 0.3), 0 4px 6px -2px rgba(59, 130, 246, 0.3);
+            
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-bg: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Colors - Enhanced for better contrast */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-accent: #60a5fa;
+            --text-accent-hover: #3b82f6;
+            --text-gradient-start: #c084fc;
+            --text-gradient-end: #f472b6;
+            
+            --border-primary: #334155;
+            --border-secondary: #475569;
+            --shadow-primary: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-accent: 0 10px 15px -3px rgba(96, 165, 250, 0.3), 0 4px 6px -2px rgba(96, 165, 250, 0.3);
+            
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+            --gradient-bg: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2), transparent 50%);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Modern Animated Background with Floating Orbs */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        /* .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            animation: float 20s infinite ease-in-out;
+        }
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            top: 50%;
+            right: -100px;
+            animation-delay: 7s;
+        }
+        .orb-3 {
+            width: 450px;
+            height: 450px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            bottom: -150px;
+            left: 50%;
+            animation-delay: 14s;
+        } */
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(100px, -100px) scale(1.1);
+            }
+            66% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+        }
+
+        /* Mesh Gradient Animation */
+        .mesh-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+            background: 
+                radial-gradient(at 40% 20%, hsla(28,100%,74%,0.3) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, hsla(189,100%,56%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, hsla(355,100%,93%,0.3) 0px, transparent 50%),
+                radial-gradient(at 80% 50%, hsla(340,100%,76%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, hsla(22,100%,77%,0.3) 0px, transparent 50%),
+                radial-gradient(at 80% 100%, hsla(242,100%,70%,0.3) 0px, transparent 50%),
+                radial-gradient(at 0% 0%, hsla(343,100%,76%,0.3) 0px, transparent 50%);
+            animation: meshMove 15s ease infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% {
+                background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 50% 50%, 0% 50%, 50% 0%;
+            }
+            50% {
+                background-position: 100% 100%, 0% 100%, 100% 0%, 0% 0%, 25% 75%, 75% 25%, 25% 25%;
+            }
+        }
+
+        /* Enhanced Modern Navigation - TRANSPARENT */
+        .modern-nav {
+            /* background: rgba(var(--bg-secondary-rgb), 0.8); */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        /* Add RGB values for transparency */
+        :root {
+            --bg-secondary-rgb: 248, 250, 252;
+        }
+
+        [data-theme="dark"] {
+            --bg-secondary-rgb: 30, 41, 59;
+        }
+
+        .modern-nav.scrolled {
+            background: rgba(var(--bg-secondary-rgb), 0.95);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+           
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-accent);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: var(--text-accent);
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* Profile Icon in Nav */
+        .profile-nav-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* border: 3px solid transparent; */
+            background: var(--gradient-accent);
+            padding: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .profile-nav-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+        }
+
+        /* Enhanced Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-accent);
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--text-accent);
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 0.75rem;
+            width: 3rem;
+            height: 3rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            border-color: var(--text-accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        /* Profile Container */
+        .profile-page-container {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Modern Profile Layout */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        /* Profile Sidebar */
+        .profile-sidebar {
+            background: rgba(var(--bg-card), 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-secondary);
+            transition: all 0.4s ease;
+            position: sticky;
+            top: 7rem;
+        }
+
+        .profile-sidebar:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .profile-photo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-photo-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-photo {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            /* border: 6px solid transparent; */
+            background: var(--gradient-accent);
+            padding: 5px;
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(139, 92, 246, 0.5);
+        }
+
+        .photo-upload-overlay {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .photo-upload-overlay:hover {
+            transform: scale(1.15) rotate(15deg);
+            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.6);
+        }
+
+        .profile-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-username {
+            color: var(--text-tertiary);
+            font-size: 0.95rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-email {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Profile Stats */
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-3px);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        /* Profile Actions */
+        .profile-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-primary);
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.875rem 1rem;
+            border-radius: 0.75rem;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: var(--gradient-accent);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .action-btn i {
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Profile Form Container */
+        .profile-form-container {
+            background: rgba(var(--bg-card), 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-secondary);
+            transition: all 0.4s ease;
+        }
+
+        .profile-form-container:hover {
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-header {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Form Styles */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .required-field::after {
+            content: "*";
+            color: #ef4444;
+            font-weight: bold;
+            margin-left: 2px;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-file {
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-primary);
+            border-radius: 0.75rem;
+            background: rgba(var(--bg-primary), 0.5);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-file:focus {
+            outline: none;
+            border-color: var(--text-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: var(--bg-card);
+        }
+
+        .form-input:read-only {
+            background: var(--bg-secondary);
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-text {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .char-counter {
+            margin-left: auto;
+            font-weight: 600;
+        }
+
+        .invalid-feedback {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .was-validated .form-input:invalid ~ .invalid-feedback,
+        .was-validated .form-textarea:invalid ~ .invalid-feedback {
+            display: block;
+        }
+
+        /* Button Styles */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 30px -5px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border-primary);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-accent);
+            color: var(--text-accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-secondary);
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border-primary);
+        }
+
+        /* Alert Messages */
+        .alert-container {
+            position: fixed;
+            top: 6rem;
+            right: 2rem;
+            max-width: 400px;
+            z-index: 100;
+        }
+
+        .alert {
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            box-shadow: var(--shadow-secondary);
+            animation: slideInRight 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .alert-success {
+            background: rgba(209, 250, 229, 0.95);
+            color: #065f46;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-error {
+            background: rgba(254, 226, 226, 0.95);
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+
+        .alert-info {
+            background: rgba(219, 234, 254, 0.95);
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+
+        [data-theme="dark"] .alert-success {
+            background: rgba(6, 95, 70, 0.95);
+            color: #d1fae5;
+        }
+
+        [data-theme="dark"] .alert-error {
+            background: rgba(153, 27, 27, 0.95);
+            color: #fee2e2;
+        }
+
+        [data-theme="dark"] .alert-info {
+            background: rgba(30, 64, 175, 0.95);
+            color: #dbeafe;
+        }
+
+        .alert-close {
+            margin-left: auto;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: inherit;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .alert-close:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .profile-sidebar {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .profile-page-container {
+                padding: 7rem 1rem 2rem;
+            }
+
+            .profile-sidebar,
+            .profile-form-container {
+                padding: 2rem 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-photo {
+                width: 130px;
+                height: 130px;
+            }
+
+            .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .alert-container {
+                left: 1rem;
+                right: 1rem;
+                max-width: none;
+            }
+
+            .profile-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Enhanced Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-accent);
+        }
+
+        /* Enhanced Focus Styles */
+        :focus-visible {
+            outline: 2px solid var(--text-accent);
+            outline-offset: 2px;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+       .form-label i {
+            transition: transform 0.3s ease;
+        }
+
+        .form-group:hover .form-label i {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--text-accent);
+        }
+        
+        /* Footer */
+        .footer {
+            background:rgba(244, 244, 244, 0.9);
+            color: black;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        body.light .footer {
+            background: rgba(248, 250, 252, 0.9);
+            color: var(--light-text);
+            border-top: 1px solid rgba(124, 58, 237, 0.2);
+        }
+        footer {
+        margin-top: auto;
+        text-align: center;
+        background-color: grey;
+        opacity: 0.7;
+        padding: 10px 0;
+        color: #fff;
+        position: sticky;
+        width: 100%;
+        bottom: 0;
+        z-index: 1000;
+        }
+
+
+    </style>
+</head>  
+
+<body> 
+    <!-- Modern Animated Background with Floating Orbs -->
+    <div class="animated-bg">
+            <div class="orb orb-1"></div>
+            <div class="orb orb-2"></div>
+            <div class="orb orb-3"></div>
+    </div>
+    <div class="mesh-gradient"></div>
+
+    <!-- Enhanced Modern Navigation -->
+    <nav class="modern-nav" id="navbar">
+        <div class="nav-container">
+            <a href="home.html" class="logo">
+                 <div class="d-flex align-items-center nav-brand">
+          
+    <img src="{% static 'images/Q-Shaastra_ Logo_.png' %}" alt="Q-shaastra Logo"
+         style="height: 60px; width: auto; margin-right: 2px; object-fit: contain;">
+                </div>
+               <span style="color: yellow; font-size: 30px; font-weight: bold;">Q-Shaastra</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Dashboard
+                </a>
+                <a href="{% url 'contact' %}" class="nav-link">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+               
+                    <i class="fas fa-user"></i> 
+               {% if user.profile.profile_photo %}
+                <img src="{{ user.profile.profile_photo.url }}" alt="Profile" class="profile-nav-icon" id="navProfilePhoto"  style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                {% else %}
+                   <img src="{% static 'images/default_profile.jpg' %}" alt="Default"  style="width:40px; height:40px; border-radius:50%; object-fit:cover;">
+                          
+                {% endif %}
+                 <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Alert Messages Container -->
+    <div class="alert-container" id="alertContainer">
+        <!-- Messages will be displayed here -->
+    </div>
+
+    <!-- Profile Page Container -->
+    <div class="profile-page-container">
+        <div class="profile-layout">
+            <!-- Profile Sidebar -->
+            <aside class="profile-sidebar">
+                <div class="profile-photo-section">
+                    <div class="profile-photo-wrapper">
+					 {% if profile.profile_photo %}
+                        <img id="profilePreview" src="{{ profile.profile_photo.url }}" alt="Profile Photo" class="profile-photo mb-2">
+					{% else %}
+                         <img id="profilePreview"
+                                  src="{% static 'images/default_profile.jpg' %}"
+                                  alt="Default Profile Photo"
+                                 class="profile-photo mb-2">
+                    {% endif %}
+                        <label for="photoInput" class="photo-upload-overlay">
+                            <i class="fas fa-camera"></i>
+                        </label>
+                    </div>
+                    <h2 class="profile-name" id="profileName"> 
+					{% if profile.name %}
+                        {{ profile.name }}
+                    {% else %}
+                        {{ user.username }}
+                    {% endif %}</h2>
+                    <p class="profile-username" id="profileUsernameDisplay">@johndoe</p>
+                      <p class="profile-email" id="profileEmail">{{ user.email }}</p>
+                </div>
+
+                <!-- Profile Stats -->
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1250</span>
+                        <span class="stat-label">Points</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Level</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">7</span>
+                        <span class="stat-label">Streak</span>
+                    </div>
+                </div>
+
+                <!-- Profile Actions -->
+                <div class="profile-actions">
+                    <a href="{% url 'home' %}" class="action-btn">
+                        <i class="fas fa-home"></i>
+                        <span>Go to Dashboard</span>
+                    </a>
+                    <button class="action-btn" onclick="showActivityLog()">
+                        <i class="fas fa-history"></i>
+                        <span>Activity Log</span>
+                    </button>
+                    <button class="action-btn" onclick="downloadProfile()">
+                        <i class="fas fa-download"></i>
+                        <span>Download Data</span>
+                    </button>
+                    <a href="{% url 'logout' %}" class="action-btn" style="color: #ef4444;" onclick="confirmLogout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Profile Form Container -->
+            <main class="profile-form-container">
+                <div class="section-header">
+                    <h1 class="section-title">Edit Profile</h1>
+                    <p class="section-description">Update your personal information and preferences</p>
+                </div>
+
+                <!-- Profile Form -->
+                <form method="POST" enctype="multipart/form-data" id="profileForm" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    <div class="form-grid">
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <label class="form-label required-field" for="displayNameInput">
+                                <i class="fas fa-user"></i>
+                                Full Name
+                            </label>
+                            <input type="text" name="name" id="displayNameInput" 
+                                   placeholder="Enter your full name" 
+                                   value="{{ profile.name|default_if_none:'' }}" 
+                                   class="form-input" required>
+                            <div class="invalid-feedback">Please enter your full name.</div>
+                        </div>
+
+                        <!-- Username (readonly) -->
+                        <div class="form-group">
+                            <label class="form-label" for="usernameInput">
+                                <i class="fas fa-at"></i>
+                                Username
+                            </label>
+                            <input type="text" id="usernameInput" value="{{ user.username }}" 
+                                   class="form-input" readonly>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group">
+                            <label class="form-label required-field" for="emailInput">
+                                <i class="fas fa-envelope"></i>
+                                Email
+                            </label>
+                            <input type="email" name="email" id="emailInput"
+                                   placeholder="Enter your email address"
+                                   value="{{ user.email }}"
+                                   class="form-input" required>
+                            <div class="invalid-feedback">Please provide a valid email address.</div>
+                        </div>
+
+                        <!-- Contact Number -->
+                        <div class="form-group">
+                            <label class="form-label required-field" for="contactNumberInput">
+                                <i class="fas fa-phone"></i>
+                                Contact Number
+                            </label>
+                            <input type="tel" name="contact_number" id="contactNumberInput"
+                                   placeholder="Enter 10 digit phone number"
+                                   value="{{ profile.contact_number }}"
+                                   class="form-input" 
+                                   maxlength="10"
+                                   pattern="[0-9]{10}"
+                                   oninput="this.value = this.value.replace(/[^0-9]/g, '').substring(0, 10);"
+                                   required>
+                            <div class="invalid-feedback">Please enter a valid 10-digit contact number.</div>
+                        </div>
+
+                        <!-- Occupation -->
+                        <div class="form-group">
+                            <label class="form-label required-field" for="occupationInput">
+                                <i class="fas fa-briefcase"></i>
+                                Occupation
+                            </label>
+                            <input type="text" name="occupation" id="occupationInput"
+                                   placeholder="Enter your occupation"
+                                   value="{{ profile.occupation }}"
+                                   class="form-input" required>
+                            <div class="invalid-feedback">Please enter your occupation.</div>
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group">
+                            <label class="form-label required-field" for="locationInput">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Location
+                            </label>
+                            <input type="text" name="location" id="locationInput"
+                                   placeholder="Enter your location"
+                                   value="{{ profile.location }}"
+                                   class="form-input" required>
+                            <div class="invalid-feedback">Please enter your location.</div>
+                        </div>
+
+                        <!-- Bio -->
+                        <div class="form-group full-width">
+                            <label class="form-label" for="bioInput">
+                                <i class="fas fa-pen"></i>
+                                Bio
+                            </label>
+                            <textarea name="bio" id="bioInput" 
+                                      class="form-textarea" 
+                                      maxlength="500"
+                                      placeholder="Tell us about yourself..."
+                                      oninput="updateCharCounter()"></textarea>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Maximum 500 characters</span>
+                                <span class="char-counter" id="charCounter">0 / 500</span>
+                            </div>
+                        </div>
+
+                        <!-- Profile Photo (Hidden Input) -->
+                        <div class="form-group full-width" style="display: none;">
+                            <input type="file" name="profile_photo" class="form-file" id="photoInput" accept="image/*">
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                            <i class="fas fa-undo"></i>
+                            Reset
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+   
+     
+ 
+    <script>
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+
+            // Load user data from localStorage
+            loadUserData();
+        });
+
+        // Load user data
+        function loadUserData() {
+            const savedUser = localStorage.getItem('quantumUser');
+            if (savedUser) {
+                const userData = JSON.parse(savedUser);
+                document.getElementById('displayNameInput').value = userData.name || '';
+                document.getElementById('emailInput').value = userData.email || '';
+                document.getElementById('contactNumberInput').value = userData.contact_number || '';
+                document.getElementById('occupationInput').value = userData.occupation || '';
+                document.getElementById('locationInput').value = userData.location || '';
+                document.getElementById('bioInput').value = userData.bio || '';
+                document.getElementById('usernameInput').value = userData.username || 'johndoe';
+                
+                // Update profile header
+                document.getElementById('profileName').textContent = userData.name || 'User';
+                document.getElementById('profileUsernameDisplay').textContent = '@' + (userData.username || 'johndoe');
+                document.getElementById('profileEmail').textContent = userData.email || '';
+                
+                // Update profile photo if exists
+                if (userData.profile_photo) {
+                    document.getElementById('profilePreview').src = userData.profile_photo;
+                    document.getElementById('navProfilePhoto').src = userData.profile_photo;
+                }
+
+                // Update character counter
+                updateCharCounter();
+            }
+        }
+
+        // Character counter for bio
+        function updateCharCounter() {
+            const bioInput = document.getElementById('bioInput');
+            const charCounter = document.getElementById('charCounter');
+            const currentLength = bioInput.value.length;
+            charCounter.textContent = `${currentLength} / 500`;
+            
+            if (currentLength > 450) {
+                charCounter.style.color = '#ef4444';
+            } else {
+                charCounter.style.color = 'var(--text-tertiary)';
+            }
+        }
+
+        // Instant profile photo preview
+        document.getElementById('photoInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                if (file.size > 5 * 1024 * 1024) {
+                    showAlert('File size should be less than 5MB', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                    document.getElementById('navProfilePhoto').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Instant update for name/email display
+        document.getElementById('displayNameInput').addEventListener('input', function() {
+            document.getElementById('profileName').textContent = this.value || 'User';
+        });
+        
+        document.getElementById('emailInput').addEventListener('input', function() {
+            document.getElementById('profileEmail').textContent = this.value || '';
+        });
+
+        // Form validation
+        (function () {
+            'use strict'
+            var forms = document.querySelectorAll('.needs-validation')
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    if (form.checkValidity()) {
+                        saveProfile();
+                    } else {
+                        showAlert('Please fill all required fields correctly', 'error');
+                    }
+                    form.classList.add('was-validated');
+                }, false)
+            })
+        })();
+
+        // Save profile
+        function saveProfile() {
+            const userData = {
+                name: document.getElementById('displayNameInput').value,
+                email: document.getElementById('emailInput').value,
+                contact_number: document.getElementById('contactNumberInput').value,
+                occupation: document.getElementById('occupationInput').value,
+                location: document.getElementById('locationInput').value,
+                bio: document.getElementById('bioInput').value,
+                username: document.getElementById('usernameInput').value,
+                profile_photo: document.getElementById('profilePreview').src,
+                points: 1250,
+                level: 3,
+                streak: 7
+            };
+
+            // Save to localStorage
+            localStorage.setItem('quantumUser', JSON.stringify(userData));
+
+            // Show success message
+            showAlert('Profile updated successfully! 🎉', 'success');
+
+            // Update home page user data if exists
+            setTimeout(() => {
+                document.getElementById('profileForm').classList.remove('was-validated');
+            }, 2000);
+        }
+
+        // Reset form
+        function resetForm() {
+            if (confirm('Are you sure you want to reset all changes?')) {
+                document.getElementById('profileForm').reset();
+                loadUserData();
+                document.getElementById('profileForm').classList.remove('was-validated');
+                showAlert('Form has been reset', 'info');
+            }
+        }
+
+        // Show alert
+        function showAlert(message, type) {
+            const alertContainer = document.getElementById('alertContainer');
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+                <button class="alert-close" onclick="this.parentElement.remove()">×</button>
+            `;
+            alertContainer.appendChild(alert);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
+
+        // Additional functions
+        function showActivityLog() {
+            showAlert('Activity log feature coming soon!', 'info');
+        }
+
+        function downloadProfile() {
+            const userData = localStorage.getItem('quantumUser');
+            if (userData) {
+                const blob = new Blob([userData], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'quantum-profile-data.json';
+                a.click();
+                showAlert('Profile data downloaded successfully!', 'success');
+            }
+        }
+
+        function confirmLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('quantumUser');
+                showAlert('Logged out successfully!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1500);
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const isOpen = navLinks.style.display === 'flex';
+            
+            if (isOpen) {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'rgba(30, 41, 59, 0.98)';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = 'var(--shadow-secondary)';
+                navLinks.style.backdropFilter = 'blur(20px)';
+                navLinks.style.borderTop = '1px solid var(--border-primary)';
+                navLinks.style.gap = '1rem';
+                navLinks.style.zIndex = '40';
+            }
+        }
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Prevent back navigation
+        if (window.history && window.history.pushState) {
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.go(1);
+            };
+        }
+    </script>
+</body>
+</html>

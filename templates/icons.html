@@ -1,0 +1,92 @@
+{% if icon_type == 'paulix' %}
+
+<svg width="40" height="40" id="Pauli-X" class="Pauli-X">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">X</text>
+</svg>
+
+{% elif icon_type == 'pauliy' %}
+<svg width="40" height="40" class="Pauli-Y" id="Pauli-Y">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">Y</text>
+</svg>
+{% elif icon_type == 'pauliz' %}
+<svg width="40" height="40"class="Pauli-Z" id="Pauli-Z" >
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">Z</text>
+</svg>
+{% elif icon_type == 'Hadamard' %}
+<svg width="40" height="40" class="H" id="Hadamard">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">H</text>
+</svg>
+{% elif icon_type == 's' %}
+<svg width="40" height="40" class="S" id="S">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">S</text>
+</svg>
+{% elif icon_type == 't' %}
+<svg width="40" height="40" class="T" id="T">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="10" y="25" font-size="20" font-family="Arial" fill="black">T</text>
+</svg>
+{% elif icon_type == 'rx' %}
+<svg width="40" height="40"class="RX" id="RX">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="5" y="25" font-size="12" font-family="Arial" fill="black">RX</text>
+</svg>
+{% elif icon_type == 'ry' %}
+<svg width="40" height="40" class="RY" id="RY">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="18" y="24" font-size="12" font-family="Arial" fill="black" text-anchor="middle" alignment-baseline="middle">RY</text>
+</svg>
+{% elif icon_type == 'rz' %}
+<svg width="40" height="40" class="RZ" id="RZ">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="20" y="25" font-size="12" font-family="Arial" fill="black" text-anchor="middle" alignment-baseline="middle">
+      RZ
+  </text>
+</svg>
+
+{% elif icon_type == 'cnot' %}
+<svg width="40" height="40"class="cnot" id="CNOT">
+  <rect width="40" height="40" fill="lightblue" />
+  <text x="20" y="25" font-size="12" font-family="Arial" fill="black" text-anchor="middle" alignment-baseline="middle">CNOT</text>
+</svg>
+
+{% elif icon_type == 'swap' %}
+
+  <svg width="40" height="40" class="swap" id="SWAP">
+    <rect width="40" height="40" fill="lightblue" />
+    <text x="20" y="25" font-size="12" font-family="Arial" fill="black" text-anchor="middle" alignment-baseline="middle">
+        SWAP
+    </text>
+</svg>
+
+
+
+{% elif icon_type == 'measurement' %}
+<svg
+  version="1.0"
+  xmlns="http://www.w3.org/2000/svg"
+  width="3rem"
+  height="3rem"
+  viewBox="0 0 154 146"
+  preserveAspectRatio="xMidYMid meet"
+  id="MEASUREMENT"
+  class="Measurement"
+>
+
+  <g
+    transform="translate(0.000000,146.000000) scale(0.100000,-0.100000)"
+    fill="#000000"
+    stroke="none"
+  >
+  
+    <path
+      d="M1474 1341 c-5 -5 -71 -40 -147 -80 l-137 -71 55 -36 55 -37 -37 -51 c-20 -28 -38 -53 -40 -55 -1 -2 -28 6 -60 17 -156 56 -327 45 -483 -31 -119 -58 -220 -159 -276 -277 -46 -95 -72 -196 -56 -212 18 -18 30 0 42 60 21 103 75 199 159 282 131 131 249 176 436 167 114 -5 210 -29 202 -51 -3 -6 -93 -134 -202 -284 -108 -149 -193 -276 -190 -282 3 -5 12 -10 19 -10 6 0 101 125 211 278 109 152 200 279 202 281 13 17 152 -98 201 -169 44 -61 88 -165 98 -228 7 -47 18 -59 38 -43 26 22 -33 194 -100 291 -39 56 -129 142 -172 164 -18 9 -32 20 -32 24 0 5 12 24 26 43 14 19 29 40 34 48 6 12 18 7 60 -23 29 -21 53 -36 54 -34 4 5 55 323 52 325 -1 2 -7 -1 -12 -6z m-42 -102 c-2 -7 -8 -38 -14 -69 -5 -30 -13 -59 -18 -63 -11 -12 -85 28 -104 55 -19 26 -18 27 58 67 60 32 84 35 78 10z"
+    />
+  </g>
+</svg>
+
+{% endif %}

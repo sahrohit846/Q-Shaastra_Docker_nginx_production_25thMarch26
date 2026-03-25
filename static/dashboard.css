@@ -1,0 +1,387 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f4f6f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+nav {
+  background-color: #343a40;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-left: 20px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+nav ul li a:hover {
+  color: #ffc107;
+}
+
+.dashboard-container {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.welcome-message {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.welcome-message h1 {
+  color: #39d651;
+  font-size: 36px;
+}
+
+
+.carousel {
+margin-bottom: 30px; /* Add margin below the carousel for spacing */
+}
+
+/* Adjust image height */
+.carousel-item img {
+/* Set image width and height to ensure responsiveness */
+width: 100%;
+height:400;  /* Makes the height adjust according to the image ratio */
+max-height: 650px;  /* Optional: You can control the max-height for larger screens */
+object-fit: cover;  /* Ensures the images cover the container properly without distortion */
+}
+
+/* For smaller devices, you can adjust the height of the images if needed */
+@media (max-width: 768px) {
+.carousel-item img {
+max-height: 250px;  /* Reduce height for smaller screens */
+}
+}
+
+/* Keyframes for the slide animation */
+@keyframes slide-animation {
+0% {
+transform: translateX(0); /* At the start, show the first image */
+}
+33% {
+transform: translateX(-100%); /* At one-third of the duration, slide to the second image */
+}
+66% {
+transform: translateX(-200%); /* At two-thirds of the duration, slide to the third image */
+}
+100% {
+transform: translateX(0); /* Return to the first image, completing the loop */
+}
+}
+
+
+
+/* Dashboard content */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: scale(1.05);
+}
+
+.dashboard-card h3 {
+  margin-bottom: 10px;
+  font-size: 22px;
+  color: #343a40;
+}
+
+.dashboard-card p {
+  color: #6c757d;
+}
+
+.dashboard-card i {
+  font-size: 50px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.content-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content-card h3 {
+  font-size: 24px;
+  color: #343a40;
+  margin-bottom: 15px;
+}
+
+.content-card p {
+  font-size: 16px;
+  color: #6c757d;
+  line-height: 1.6;
+}
+
+footer {
+  text-align: center;
+  background-color: #343a40;
+  color: white;
+  padding: 10px 0;
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+} 
+
+@media screen and (max-width: 768px) {
+  .dashboard-grid {
+      grid-template-columns: 1fr;
+  }
+
+  .content-grid {
+      grid-template-columns: 1fr;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+.btn-info {
+   color: #f4f6f9; 
+   background-color: #007bff; 
+  border-color: #343a40; 
+}
+/* Nav sticky */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+/* footer sticky */
+footer {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* footer Hover Animation  */
+footer {
+  background: linear-gradient(to right, #007bff, #343a40);
+  color: white;
+  transition: background 0.5s ease;
+}
+
+footer:hover {
+  background: linear-gradient(to right, #343a40, #007bff);
+}
+
+
+/* Nav  Hover Animation  */
+nav {
+  /* background: linear-gradient(to right, #007bff, #343a40); */
+  color: white;
+  transition: background 0.5s ease;
+}
+
+nav:hover {
+  background: linear-gradient(to right, #343a40, #007bff);
+}
+
+
+
+/* .testimonial css*/
+
+#testimonials {
+  background-color: #f8f9fa;
+  padding: 50px 0;
+  text-align: center;
+}
+
+#testimonials h2 {
+  margin-bottom: 30px;
+  font-size: 32px;
+}
+
+.testimonial {
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial p {
+  font-style: italic;
+}
+
+.testimonial h4 {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #007bff;
+}
+
+/* Counters Section */
+.counters-section {
+display: flex;
+justify-content: space-around;
+margin: 50px 0;
+background-color: #f7f9fc;
+padding: 40px;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.counter {
+text-align: center;
+}
+
+.counter h3 {
+font-size: 36px;
+color: #007bff;
+margin: 0;
+}
+
+.counter p {
+font-size: 18px;
+color: #343a40;
+}
+
+@media screen and (max-width: 768px) {
+.counters-section {
+flex-direction: column;
+align-items: center;
+}
+
+.counter {
+margin-bottom: 20px;
+}
+}
+/*Hero Section css */
+.hero {
+
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+text-align: center;
+position: relative;
+} 
+
+.hero::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for readability */
+}
+
+.hero-content {
+position: relative;
+z-index: 1; /* Brings the hero content above the particles */
+color: white; /* Make text white for visibility */
+}
+
+.btn-cta {
+background-color: #007bff;
+color: white;
+padding: 12px 24px;
+border-radius: 30px;
+text-decoration: none;
+margin-top: 20px;
+transition: background-color 0.3s ease;
+}
+
+.btn-cta:hover {
+background-color: #0056b3;
+}
+
+/* Features Section */
+.features {
+display: flex;
+justify-content: space-around;
+padding: 50px;
+background-color: #f9f9f9;
+}
+
+.feature-card {
+text-align: center;
+padding: 20px;
+background-color: white;
+border-radius: 8px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+transform: scale(1.05);
+}
+
+.feature-card i {
+font-size: 40px;
+color: #007bff;
+margin-bottom: 10px;
+}
+
+.feature-card h3 {
+margin-bottom: 10px;
+}
+
+.feature-card p {
+color: #6c757d;
+}
+/* css for particles */
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background-color: #0d0d0d; /* Dark background to fit the quantum theme */
+  z-index: -1; /* Ensures the particles stay in the background */
+  top: 0;
+  left: 0;
+}
+#particles-js {
+  position: fixed;
+}
+.hero-content {
+  position: relative;
+  z-index: 1; /* Brings the hero content above the particles */
+  color: white; /* Make text white for visibility */
+}

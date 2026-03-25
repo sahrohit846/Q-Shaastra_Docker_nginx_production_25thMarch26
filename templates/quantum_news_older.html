@@ -1,0 +1,1033 @@
+
+{% load static %}
+{% load highlight %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% if user.is_authenticated %}
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    {% endif %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News&Blogs_Ai</title>
+       <!--particles-js config-->
+    {% comment %} <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> {% endcomment %}
+    <script src="{% static 'js/pronounce.js' %}"></script>
+
+    <script src="{% static 'js/particles-config.js' %}"></script>
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="{% static "js/news_header.js" %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  
+<style>
+  /* Hero Section */
+  .hero {
+    background: url("{% static 'images/bck9.jpg' %}") no-repeat center center/cover;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    margin-top: 10px;
+  }
+    :root {
+      --quantum-blue: #00ffff;
+      --quantum-purple: #9d00ff;
+      --dark-bg: #0a1929;
+      --card-bg: #132f4c;
+      --text-light: #ffffff;
+      --card-shadow: 0 4px 8px rgba(0, 255, 255, 0.2);
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--dark-bg);
+      color: var(--text-light);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    
+
+    .hero-title {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.2rem;
+    }
+
+
+
+
+    /* Base Styles */
+   nav.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #222;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+   }
+  
+  nav h2.logo {
+    color: greenyellow;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  nav h2.logo span {
+    color: yellow;
+  }
+  
+  /* Nav items */
+  .navbar-nav {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navbar-nav li {
+    margin-left: 20px;
+  }
+  
+  .navbar-nav li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  .navbar-nav li a:hover {
+    color: #ffc107;
+  }
+  
+   /* Nav  Hover Animation  */
+   nav {
+   background: linear-gradient(to right, #007bff, #343a40);
+   color: white;
+   transition: background 0.5s ease;
+   }     
+   nav:hover {
+   background: linear-gradient(to right, #343a40, #007bff);
+   }
+     
+    /* Nav  content  in the center with logo  */
+  .align-items-center {
+  -ms-flex-align: center !important;
+  align-items: center !important;
+   }
+  .d-flex {
+  display: -ms-flexbox !important;
+  display: flex !important;
+  }
+  
+  /* Hamburger menu (hidden by default) */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+  }
+  
+  .hamburger span {
+    height: 3px;
+    width: 25px;
+    background: white;
+    border-radius: 2px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .navbar-nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #222;
+      padding: 10px 0;
+    }
+  
+    .navbar-nav.show {
+      display: flex;
+    }
+  
+    .navbar-nav li {
+      margin: 10px 0;
+      text-align: center;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+   }
+  
+   .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  
+    /* Filter Section */
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+      background-color: rgba(48, 165, 236, 0.3);
+      margin-bottom: auto;
+     
+    }
+    .filter-container select{
+      padding:10px 15px;
+      border-radius:8px;
+      background-color: #222;
+      color: cyan;
+      font-size: 16px;
+      border:1px solid lightgreen;
+      min-width: 200px;
+    }
+
+      #news-section {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 2rem;
+        padding: 2rem;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 400px;
+      }
+  
+      .flip-card {
+        background-color: transparent;
+        width: 100%;
+        height: 420px;
+        perspective: 1000px;
+      }
+  
+      .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: left;
+        transition: transform 0.8s ease;
+        transform-style: preserve-3d;
+      }
+  
+      .flip-card.show-back .flip-card-inner {
+        transform: rotateY(180deg);
+      }
+  
+      .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+      }
+  
+      .flip-card-front {
+        background: #1e1e1e;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+      }
+  
+      .flip-card-front img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+      }
+  
+      .card-content {
+        padding: 1rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background-color: #132f4c;
+        position: relative;
+        max-height: 300px; /* adjust height as needed */
+        overflow-y: auto;
+        
+      }
+      .card-content h3 {
+        margin: 0 0 1rem 0;
+        color: var(--quantum-blue);
+      }
+  
+      .meta-info p {
+        margin: 4px 0;
+        font-size: 0.85rem;
+        color: #ccc;
+      }
+  
+      .card-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+  
+      .flip-card-back {
+        background:#132f4c;
+        color: #fff;
+        transform: rotateY(180deg);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        
+      }
+  
+      /* Scrollable + Styled Card */
+  .summary-section-scrollable {
+    max-height: fit-content;
+    overflow-y: auto;
+    padding: 1rem;
+    border-radius: 10px;
+    background: rgba(25, 25, 35, 0.8);
+    border: 1px solid rgba(100, 200, 255, 0.3);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    margin-bottom: 1rem;
+    color: #eee;
+    transition: all 0.3s ease-in-out;
+  }
+      .summary-section-scrollable h4,
+      .further-read h4 {
+        color: #ff9800;
+        margin-bottom: 0.5rem;
+      } 
+  
+      .further-read ul {
+        list-style: none;
+        padding-left: 0;
+      }
+  
+      .further-read li {
+        margin-bottom: 6px;
+      }
+  
+      .read-aloud-btn {
+        margin-top: 8px;
+        background-color: #03a9f4;
+        color: white;
+        font-size: 0.85rem;
+      }
+  
+      .read-aloud-btn:hover {
+        background-color: #29b6f6;
+      }
+
+      .no-news {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 300px; /* adjust based on your section height */
+      text-align: center;
+      font-size: 1.2rem;
+     
+      font-weight: 500;
+      {% comment %} background-color: rgba(255, 255, 255, 0.05); /* optional background */ {% endcomment %}
+      border-radius: 8px;
+    } 
+      @media (max-width: 500px) {
+        .card-actions {
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+  
+      .summary-btn:hover, .back-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 255, 255, 0.3);
+      }
+      .summary-btn, .back-btn {
+        background: linear-gradient(135deg, var(--quantum-blue), var(--quantum-purple));
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.9rem;
+        transition: 0.3s ease;
+      }
+      .read-more {
+        color: yellow;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .read-more:hover {
+        text-decoration: underline;
+      }
+      .news-card-container {
+        width: 100%;
+        max-width: 400px;
+        margin: 1rem auto;
+      }
+  
+  
+  /* Read Aloud Button */
+  .pulse-btn {
+    background-color: #111;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+
+   .pulse-btn:hover {
+     background-color: #00ffff;
+     color: #111;
+     transform: scale(1.05);
+   }
+   
+   /* Back Button - Animated */
+   .animated-back {
+     background: transparent;
+     border: 1px solid #ff66cc;
+     color: #ff66cc;
+     padding: 8px 16px;
+     border-radius: 20px;
+     font-weight: 600;
+     font-size: 0.9rem;
+     cursor: pointer;
+     transition: all 0.4s ease-in-out;
+   }
+   
+   .animated-back:hover {
+     background-color: #ff66cc;
+     color: #111;
+     transform: translateX(-5px);
+     box-shadow: 0 0 8px #ff66cc;
+   }
+   
+   
+   
+   footer {
+     text-align: center;
+     background-color: #343a40;
+     color: white;
+     padding: 10px 0;
+     position: relative;
+     width: 100%;
+     bottom: 0;
+   }
+   
+   footer p {
+     margin: 0;
+   } 
+   /* footer sticky */
+   footer {
+     position: sticky;
+     top: 0;
+     z-index: 1000;
+   }
+   
+   /* footer Hover Animation  */
+   footer {
+     background: linear-gradient(to right, #007bff, #343a40);
+     color: white;
+     transition: background 0.5s ease;
+   }
+   
+   footer:hover {
+     background: linear-gradient(to right, #343a40, #007bff);
+   }
+   
+   
+   .news-card-container:hover {
+     transform: translateY(-10px) scale(1.03);
+     box-shadow: 0 12px 24px rgba(0, 255, 255, 0.2),
+                 0 0 12px rgba(144, 0, 255, 0.2),
+                 0 0 20px rgba(0, 255, 255, 0.15);
+                 z-index: 2;             
+   }
+   
+  .note-message {
+    background: linear-gradient(90deg, #0f172a, #1e293b);
+    border: 2px solid #3b82f6;
+    border-radius: 12px;
+    padding: 16px 24px;
+    max-width: 600px;
+    text-align: center;
+    color: #e2e8f0;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0, 102, 204, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  .note-icon {
+    font-size: 24px;
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+  }
+  
+  {% comment %} new css for card filliping with fixed header and footer  {% endcomment %}
+  .summary-section-scrollable {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 10px;
+    background: #0a1929;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,255,255,0.4);
+   }
+  
+  .summary-header {
+    flex-shrink: 0;
+    margin-bottom: 8px;
+    color: yellow;
+    font-size: 1rem;
+  }
+  
+  .summary-scroll-area {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: cyan transparent;
+    scroll-behavior: smooth;
+  }
+  
+  .summary-scroll-area::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .summary-scroll-area::-webkit-scrollbar-thumb {
+    background: cyan;
+    border-radius: 3px;
+  }
+  
+  /* Glowing Floating Button */
+  .read-aloud-btn.glowing-btn {
+    flex-shrink: 0;
+    position: sticky;
+    bottom: 0;
+    background: linear-gradient(90deg, #00f0ff, #0066ff);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    font-size: 0.95rem;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0,255,255,0.8);
+    animation: pulseGlow 2s infinite;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .read-aloud-btn.glowing-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 600px) {
+    .summary-header {
+      font-size: 0.9rem;
+    }
+    .read-aloud-btn.glowing-btn {
+      font-size: 0.85rem;
+      padding: 6px 10px;
+    }
+  }
+  
+  
+  {% comment %} for front card  {% endcomment %}
+  /* Scroll only text content */
+  .card-text-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: cyan transparent;
+  }
+  .card-text-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .card-text-scroll::-webkit-scrollbar-thumb {
+    background: cyan;
+    border-radius: 3px;
+  }
+  
+  /* Fixed bottom action bar */
+  .fixed-actions {
+    position: sticky;
+    bottom: 0;
+    background: #0a1929;
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .summary-btn, .read-more {
+    background: linear-gradient(90deg, #00f0ff, #0066ff);
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0,255,255,0.6);
+    transition: transform 0.2s ease;
+  }
+  
+  .summary-btn:hover, .read-more:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(0,255,255,0.8);
+  }
+
+  {% comment %} for Highlight the critical word /keyword {% endcomment %}
+  .keyword {
+    background-color: #db6731ff;
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+ .icon {
+    color: orange;
+    margin-left: 4px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+
+  .news-search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1001;
+  background: #001553;
+  padding: 0.8em 1em;
+  box-shadow: 0 2px 12px rgba(49, 131, 250, 0.13);
+  border-bottom: 1px solid #ddd;
+  text-align: right;
+   }
+   
+   .search-input {
+     width: 250px;
+     max-width: 90vw;
+     padding: 0.78em 2.5em 0.78em 2.4em;
+     font-size: 1.07em;
+     border-radius: 999px;
+     border: 1px solid #3183fa;
+     background: #f4f7ff;
+     color: #223354;
+     transition: border-color .2s, box-shadow .2s;
+     background-image: url('data:image/svg+xml;utf8,<svg width="18" height="18" fill="gray" xmlns="http://www.w3.org/2000/svg"><circle cx="8" cy="8" r="6" stroke="gray" stroke-width="2" fill="none"/><line x1="14" y1="14" x2="10.8" y2="10.8" stroke="gray" stroke-width="2"/></svg>');
+     background-repeat: no-repeat;
+     background-position: 11px center;
+   }
+   
+   #clear-news-search {
+     position: absolute;
+     right: 20px;
+     top: 50%;
+     transform: translateY(-50%);
+     background: transparent;
+     border: none;
+     font-size: 1.3em;
+     color: #999;
+     cursor: pointer;
+     display: none;
+     padding: 0;
+     line-height: 1;
+   }
+   .search-input:not(:placeholder-shown) + #clear-news-search { display: block; }
+   #clear-news-search:hover { color: #3183fa; }
+   
+   .search-title-highlight {
+     background: #ffe066;
+     color: #282828;
+     border-radius: 4px;
+     font-weight: bold;
+     padding: 1px 5px;
+     transition: background .2s;
+   }
+   
+  
+   .oops-message {
+    width: 90%;
+    max-width: 400px; /* bigger than 100px so it looks balanced */
+    margin: auto; /* centers horizontally */
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* centers vertically */
+    
+    text-align: center;
+    font-size: 1.13em;
+    color: #d8382f;
+    background: linear-gradient(90deg,#fffbe8 70%,#fde3df 100%);
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    padding: 1.1em 0.8em;
+    font-weight: 500;
+    box-shadow: 0 2px 14px rgba(216,56,47,0.06);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+  }
+
+  
+  .oops-message .oops-icon {
+    font-size: 1.7em;
+  }
+  
+  @media (max-width: 500px) {
+    .oops-message {
+      font-size: 1em;
+      padding: 0.7em 0.3em;
+    }
+  }
+  
+   
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+  <nav class="navbar">
+      <div class="d-flex align-items-center">
+       <img src="{% static 'images/q(2).png' %}" alt="Q-shaastra Logo"
+             style="height: 60px; width: auto; margin-right: 12px; object-fit: contain;">
+        <span style="color: yellow; font-size: 24px; font-weight: bold;">Q-Shaastra</span>
+    </div>
+    <!-- Hamburger icon for mobile -->
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  
+    <!-- Navigation links -->
+    <ul class="navbar-nav" id="navMenu">
+        <li><a href="{% url 'home' %}">Dashboard</a></li>
+        <li><a href="{% url 'about' %}">About Q-Shaastra</a></li>
+        <li><a href="{% url 'contact' %}">Contact_Us</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+    </ul>
+ </nav>
+
+  <div class="news-search-bar sticky-search">
+   <input type="text" id="news-search-input" class="search-input" placeholder="🔍 Search article titles...">
+   <button id="clear-news-search" title="Clear search" aria-label="Clear search">&times;</button>
+  </div>
+
+<!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+        <h1 class="hero-title" style="color: yellow;">Stay Updated with <span style="color: orange;">Quantum News</span></h1>
+        <p class="hero-subtitle" id="typing-text"></p>
+    </div>
+  </section>
+
+  <!-- News Filter Section -->
+  <div class="filter-container">
+    <label for="countrySelect" style="color: yellow; font-size: 22px;" > 🧑‍💻 Select Technology:</label>
+      <select id="category" onchange="fetchNews()">
+        {% for cat in categories %}
+            <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+       </select>
+    <label for="countrySelect" style="color: yellow; font-size: 22px;"> 🌍 Select Country:</label>
+    <select id="country" onchange="fetchNews()">
+        <option value="">🌎Global</option>
+        <option value="United States" {% if selected_country == "United States" %}selected{% endif %}>🇺🇸 United States</option>
+        
+        <option value="United Kingdom" {% if selected_country == "United Kingdom" %}selected{% endif %}>🇬🇧 United Kingdom</option>
+        <option value="eu" {% if selected_country == "eu" %}selected{% endif %}>🇪🇺 European Union</option>
+        <option value="in" {% if selected_country == "in" %}selected{% endif %}>🇮🇳 India</option>
+        <option value="jp" {% if selected_country == "jp" %}selected{% endif %}>🇯🇵 Japan</option>
+        <option value="cn" {% if selected_country == "cn" %}selected{% endif %}>🇨🇳 China</option>
+        <option value="de" {% if selected_country == "de" %}selected{% endif %}>🇩🇪 Germany</option>
+        <option value="fr" {% if selected_country == "fr" %}selected{% endif %}>🇫🇷 France</option>
+        <option value="ca" {% if selected_country == "ca" %}selected{% endif %}>🇨🇦 Canada</option>
+        <option value="au" {% if selected_country == "au" %}selected{% endif %}>🇦🇺 Australia</option>
+        <option value="KR" {% if selected_country == "KR" %}selected{% endif %}>🇰🇷 South Korea</option>
+        <option value="NL" {% if selected_country == "NL" %}selected{% endif %}>🇳🇱 Netherlands</option>
+        <option value="ES" {% if selected_country == "ES" %}selected{% endif %}>🇪🇸 Spain</option>
+        <option value="RU" {% if selected_country == "RU" %}selected{% endif %}>🇷🇺 Russia</option>
+        <option value="IT" {% if selected_country == "IT" %}selected{% endif %}>🇮🇹 Italy</option>
+        <option value="SA" {% if selected_country == "SA" %}selected{% endif %}>🇸🇦 Saudi Arabia</option>
+        <option value="IL" {% if selected_country == "IL" %}selected{% endif %}>🇮🇱 Israel</option>
+        <option value="SG" {% if selected_country == "SG" %}selected{% endif %}>🇸🇬 Singapore</option>
+        <option value="SE" {% if selected_country == "SE" %}selected{% endif %}>🇸🇪 Sweden</option>
+        <option value="PL" {% if selected_country == "PL" %}selected{% endif %}>🇵🇱 Poland</option>
+        <option value="CH" {% if selected_country == "CH" %}selected{% endif %}>🇨🇭 Switzerland</option>
+    </select>
+
+    <div class="filter-options">
+      <label for="summary_filter" style="color: orange;">🔍Filter:</label>
+      <select id="summary_filter" onchange="applyFilter()">
+        <option value="all">All Articles</option>
+        <option value="with_summary">News/op-ed Articles</option>
+        <option value="without_summary">Research Articles</option>
+      </select>
+    </div>
+    
+  </div>
+  {% if filter_message %}
+  <div style="display: flex; justify-content: center; margin-top: 20px;">
+    <div class="note-message">
+      <span class="note-icon" style="color: red;"><b>📢</b></span>
+      <span class="note-text" style="color:yellow">{{ filter_message }}</span>
+    </div>
+  </div>
+{% endif %}
+
+
+<!-- News Display Section -->
+<div class="main-content">
+  <section id="news-section">
+    {% for article in news_articles %}
+ <div class="news-card-container animate__animated animate__fadeInUp" style="animation-delay: {{ forloop.counter0|add:"0.1"|floatformat:1 }}s;">
+     <div class="flip-card" id="flip-container-{{ forloop.counter }}">
+       <div class="flip-card-inner" id="flip-{{ forloop.counter }}">
+         <!-- Front Side -->
+         <div class="flip-card-front">
+          <img src="{{ article.urlToImage|default:'https://via.placeholder.com/400x200?text=No+Image' }}" alt="News Image">
+           <div class="card-content">
+
+             <h3>{{ article.title|truncatechars:80 }}</h3>
+              <div class="card-text-scroll">
+             <p>{{ article.description|truncatechars:120 }}</p>
+             <div class="meta-info">
+               <p><i class="fas fa-calendar-day"></i> Published: {{ article.published_at|date:"F j, Y" }}</p>
+               <p><i class="fas fa-newspaper"></i> Source: {{ article.source }}</p>
+             </div>
+            </div>
+            {% comment %} fixedbutton  {% endcomment %}
+             <div class="card-actions fixed-actions">
+               <button class= "summary-btn" onclick="flipCard({{ forloop.counter }})">
+                 <i class="fas fa-brain"></i> Show AI Summary
+               </button>
+               {% comment %} <a class="read-more" href="{{ article.url }}" target="_blank"  style="color: yellow;">
+                 <i class="fas fa-external-link-alt"></i> Full Article
+               </a> {% endcomment %}
+               <a class="read-more" href="{% url 'article-detail' article.id %}" target="_blank"  style="color: yellow;">
+                        <i class="fas fa-external-link-alt"></i> Full Article
+               </a>
+             </div>
+           </div>
+         </div>
+ 
+      <!-- Back Side -->
+      <div class="flip-card-back">
+        <div class="summary-section-scrollable styled-summary-card">
+          <h4 class="summary-header">
+            <i class="fas fa-bullseye"></i> Salient Points
+          </h4>
+      
+          <div class="summary-scroll-area">
+            <p id="summary-text-{{ forloop.counter }}">
+              {{ article.summary|auto_highlight|default:"Summary not available."|safe }}
+            </p>
+          </div>
+      
+          <button class="read-aloud-btn glowing-btn"
+                  onclick="readSummary(document.getElementById('summary-text-{{ forloop.counter }}').innerText)">
+            <i class="fas fa-volume-up"></i> Read Aloud
+          </button>
+        </div>
+      
+        <div class="further-read">
+          <h4><i class="fas fa-microscope"></i> Article Details</h4>
+          <ul>
+            <li><strong>Category:</strong> {{ article.category }}</li>
+            <li><strong>Country:</strong> {{ article.country }}</li>
+            <li><strong>Published:</strong> {{ article.published_at|date:"F j, Y" }}</li>
+          </ul>
+          <button class="back-btn" onclick="flipCard({{ forloop.counter }})" style="margin-top:10px;">
+            <i class="fas fa-arrow-left"></i> Back to Article
+          </button>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+  </div>
+
+
+    {% empty %}
+      <p class="no-news"> No news found for this Technology and Country.</p>
+    {% endfor %}
+  </section>
+</div>
+<!-- Footer -->
+<footer>
+  <p>Copyright &copy; 2025 CDAC-Patna | All rights reserved</p>
+</footer>
+
+ <!-- Scripts -->
+<script>
+  function flipCard(id) {
+    const flipContainer = document.getElementById(`flip-container-${id}`);
+    flipContainer.classList.toggle("show-back");
+  }
+
+  function readSummary(text) {
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = 1.1;
+      speechSynthesis.speak(utterance);
+    } else {
+      alert('Text-to-speech not supported in your browser');
+    }
+  }
+
+  function applyFilter() {
+    
+    const filterValue = document.getElementById("summary_filter").value;
+    const params = new URLSearchParams(window.location.search);
+    params.set("summary_filter", filterValue);
+    window.location.search = params.toString();
+  }
+
+   // Ensure the dropdown reflects current filter
+   document.getElementById("summary_filter").value = "{{ selected_filter }}";
+
+   document.querySelectorAll('.news-card-container').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      card.style.setProperty('--x', e.offsetX + 'px');
+      card.style.setProperty('--y', e.offsetY + 'px');
+    });
+  });
+  
+</script> 
+
+<script>
+ const searchInput = document.getElementById('news-search-input');
+ const clearBtn = document.getElementById('clear-news-search');
+ const newsSection = document.getElementById('news-section');
+ const getCards = () => newsSection.querySelectorAll('.news-card-container');
+ let oopsMsgEl = null;
+ 
+ // Remove highlights and show all cards
+ function clearHighlights() {
+   getCards().forEach(card => {
+     let h3 = card.querySelector('h3');
+     card.style.display = '';
+     if (h3) h3.innerHTML = h3.textContent;
+   });
+   if (oopsMsgEl) {
+     oopsMsgEl.remove();
+     oopsMsgEl = null;
+   }
+ }
+ 
+ // Show the "not found" friendly message at top
+ function showOopsMessage(term) {
+   if (oopsMsgEl) oopsMsgEl.remove();
+   oopsMsgEl = document.createElement('div');
+   oopsMsgEl.className = 'oops-message';
+   oopsMsgEl.innerHTML = `
+     <span class="oops-icon">😕</span>
+     <span>
+       No articles found for <b style="color:#f36;">"${term}"</b>.<br>
+       Try a different keyword or <a href="#" id="oops-clear-search" style="color:#3183fa;text-decoration:underline;">clear search</a>.
+     </span>
+   `;
+   newsSection.prepend(oopsMsgEl);
+ 
+   // Add clickable clear search link
+   setTimeout(() => {
+     const clearLink = document.getElementById('oops-clear-search');
+     if (clearLink) {
+       clearLink.onclick = (e) => {
+         e.preventDefault();
+         searchInput.value = '';
+         clearHighlights();
+         searchInput.focus();
+       };
+     }
+   }, 50);
+ }
+ 
+ // Highlight and filter news cards
+ function highlightAndScrollNews() {
+   clearHighlights();
+   let term = searchInput.value.trim();
+   if (!term) {
+     // Show all cards and remove message on empty input
+     getCards().forEach(card => card.style.display = '');
+     if (oopsMsgEl) oopsMsgEl.remove();
+     return;
+   }
+   let found = false;
+   let regexp = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+   getCards().forEach(card => {
+     let h3 = card.querySelector('h3');
+     if (h3 && regexp.test(h3.textContent)) {
+       found = true;
+       card.style.display = '';
+       h3.innerHTML = h3.textContent.replace(regexp, m =>
+         `<span class="search-title-highlight">${m}</span>`);
+     } else {
+       card.style.display = 'none';
+       if (h3) h3.innerHTML = h3.textContent;
+     }
+   });
+   if (!found) {
+     showOopsMessage(term);
+   } else if (oopsMsgEl) {
+     oopsMsgEl.remove();
+   }
+ }
+ 
+ // Show/hide clear button and run highlight as user types
+ searchInput.addEventListener('input', function(){
+   clearBtn.style.display = searchInput.value ? 'inline-block' : 'none';
+   highlightAndScrollNews();
+ });
+ 
+ clearBtn.addEventListener('click', () => {
+   searchInput.value = '';
+   clearHighlights();
+   searchInput.focus();
+ });
+ 
+ // Optional: remove oops msg on manual focus-clear
+ searchInput.addEventListener('focus', function() {
+   if (!searchInput.value) clearHighlights();
+ });
+
+</script>
+</body>
+</html> 

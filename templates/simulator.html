@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="first row flex-grow-1 shadow mb-1"
+  style="background-color: #edeff1; height: 47%;    justify-content: space-evenly; width: 98%; flex-wrap: nowrap;">
+  <!-- *********************************************CATALOG-FRONTEND*********************************** -->
+  <div class="col-2 shadow" style="overflow: auto;">
+    <table class="table mt-2 text-center col-12 col-md-8 col-lg-6 col-xl-4 mx-auto "
+      style="height: -webkit-fill-available;">
+      <thead>
+        <tr>
+          <th colspan="2" style="font-size: 2rem">Quantum Gate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size center">
+              <img src="./../static/img/Pauli-X.png" alt="Pauli-X" class="img-fluid" draggable="true" id="paulix">
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Pauli-Y.png" alt="Pauli-Y" class="img-fluid" draggable="true" id="pauliy">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Pauli-Z.png" alt="Pauli-Z" class="img-fluid" draggable="true" id="pauliz">
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Hadamard.png" alt="Hadamard" class="img-fluid" draggable="true" id="Hadamard" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/S.png" alt="S" class="img-fluid" draggable="true" id="s" />
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/T.png" alt="T" class="img-fluid" draggable="true" id="t" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Rx.png" alt="Rx" class="img-fluid" draggable="true" id="rx" />
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Ry.png" alt="Ry" class="img-fluid" draggable="true" id="ry" />
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img class="2" src="./../static/img/CNOT.png" alt="CNOT" class="img-fluid" draggable="true" id="cnot">
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/CZ.png" alt="CZ" class="img-fluid" draggable="true" id="cz">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img class="2" src="./../static/img/Swap.png" alt="Swap" class="img-fluid" draggable="true" id="swap">
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img class="3" src="./../static/img/Toffoli.png" alt="Toffoli" class="img-fluid" draggable="true"
+                id="toffoli">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Measurement.png" alt="Measurement" class="img-fluid" draggable="true"
+                id="Measurement">
+            </div>
+          </td>
+          <td style="text-align: -webkit-center;">
+            <div class="gateButton  logo-size">
+              <img src="./../static/img/Barrier.png" alt="Barrier" class="img-fluid" draggable="true" id="Barrier">
+            </div>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+  <!-- *********************************************CIRCUIT-SIMULATOR********************************** -->
+  <!-- HTML -->
+  <div class=" simulator row col-7 shadow table-responsive" style="height: -webkit-fill-available; overflow-x: auto;">
+    <!-- First table -->
+    <div class="col-1" style="height: 27rem;">
+      <table class=" table1 table  w-100 " id="bits">
+        {% for i in "01234"|rjust:5 %}
+        <tr class="d-flex align-items-center justify-content-center mb-0" style="height: 3.5rem;">
+          <td class="p-3 align-middle" style="width: 5rem;">q[{{ i }}]</td>
+          {% endfor %}
+          </tbody>
+      </table>
+    </div>
+
+    <!-- Second table -->
+    <div class="col-11" style="height: 27rem;">
+      <table class="table2 table " id="dataTable" style="table-layout: fixed;">
+        <tbody>
+          {% for i in "01234"|rjust:5 %}
+          <tr class="myTr" id="{{ i }}">
+            {% for j in numbers %}
+            <td class="circuitBox wire" ondrop="dropLogo(event)" ondragover="allowDrop(event)">
+            </td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+
+
+          <!-- Add more rows as needed -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- *********************************************CIRCUIT CONTROLLER********************************** -->
+  <div class="circuit-controller col-1 d-flex flex-column justify-content-center shadow"
+    style="width: 4rem; margin-left: 19px; height: -webkit-fill-available">
+    <!-- ************************* Add ************************** -->
+    <div class="mb-4">
+      <button class="btn btn-outline-secondary btn-block" id="addRow" style="border-radius: 50%" title="Add"
+        onclick="addRow()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-align-center"
+          viewBox="0 0 16 16">
+          <path
+            d="M8 1a.5.5 0 0 1 .5.5V6h-1V1.5A.5.5 0 0 1 8 1m0 14a.5.5 0 0 1-.5-.5V10h1v4.5a.5.5 0 0 1-.5.5M2 7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z" />
+        </svg>
+      </button>
+    </div>
+    <!-- ************************** Remove *********************** -->
+    <div class="mb-4">
+      <button class="btn btn-outline-secondary btn-block" id="removeRow" style="border-radius: 50%" title="Remove"
+        onclick=" removeRow()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-dash"
+          viewBox="0 0 16 16">
+          <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8" />
+        </svg>
+      </button>
+    </div>
+    <!-- *************************** Submit ************************* -->
+
+    <div class="mb-4">
+      <button class="btn btn-outline-secondary circle-button" id="resetButton" style="border-radius: 50%" title="Reset">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise"
+          viewBox="0 0 16 16" style="font-weight: bold">
+          <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z" />
+          <path
+            d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466" />
+        </svg>
+      </button>
+    </div>
+    <div class="mb-4">
+      <button class="btn btn-outline-secondary btn-block" id="submit" onclick="handleSubmit();"
+        style="border-radius: 50%" title="Submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+          class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <!-- *********************************************DISPLAY-CODE***************************************** -->
+  <div class="code col-lg-3 col-md-4 col-sm-6 d-flex flex-column">
+    <div class="heading text-center bg-body-tertiary p-2 rounded d-flex align-items-center">
+      <h4 class="mx-auto mb-0">
+        <u>Circuit Code</u>
+      </h4>
+      <span>
+        <select name="permission" id="permission" class="ms-auto">
+          <option value="read">Read only</option>
+          <option value="write">Read/Write both</option>
+        </select>
+      </span>
+    </div>
+
+    <div class="gateMatrix shadow overflow-auto">
+      <div class="gateMatrixContent">
+        <span id="circuitData">
+
+        </span>
+      </div>
+      <div id="myCode" contenteditable="false" style="display: none;">
+        <pre class="gateMatrixContent">
+        import QuantumCircuit as qc
+        {% comment %} qc.h(0)
+        qc.cnot(0,1)
+        qc.draw() {% endcomment %}
+      </pre>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ********************************************Result and Bloch Sphere************************************** -->
+<div class="second container-fluid shadow mt-1" style="width: 100%">
+  <div class="container2 d-flex justify-content-center">
+    <div class="bargraph shadow d-flex flex-column" style="flex: 69%">
+      <div class="bg-body-tertiary p-2 rounded text-center fs-2 fw-bold">
+        <u>Probability Chart</u>
+      </div>
+      <div class="matrix" style="display: flex; justify-content: space-evenly">
+        <!-- Set a fixed height for the canvas element -->
+        <canvas id="myChart" style="width: 58rem; max-width: 59rem; display: block"></canvas>
+      </div>
+    </div>
+
+    <!-- *************BlochSphere********* -->
+    <div class="blochSphere shadow d-flex flex-column ml-4" style="flex: 29%">
+      <div class="bg-body-tertiary p-2 rounded text-center underlined fs-2 graphHeading fw-bold">
+        <u>BlochSphere </u>
+      </div>
+      <div class="graph text-center">
+         <img src="./../static/img/bloachsphere.gif" alt="Bloch Sphere" style="height: 91%; width: 39vh" />
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock body %}

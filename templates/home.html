@@ -1,0 +1,1877 @@
+{% load static %}
+
+       <!DOCTYPE html>
+       <html lang="en">
+       <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Dashboard - Modern UI</title>
+    
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Modern Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Modern CSS Framework -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Particles.js for background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <style>
+        /* CSS Variables for Enhanced Theme System */
+        :root {
+            /* Light Theme Colors - Enhanced for better visibility */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8fafc;
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --text-accent: #3b82f6;
+            --text-accent-hover: #2563eb;
+            --text-gradient-start: #8b5cf6;
+            --text-gradient-end: #ec4899;
+            
+            --border-primary: #e2e8f0;
+            --border-secondary: #cbd5e1;
+            --shadow-primary: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-accent: 0 10px 15px -3px rgba(59, 130, 246, 0.3), 0 4px 6px -2px rgba(59, 130, 246, 0.3);
+            
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-bg: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Theme Colors - Enhanced for better contrast */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
+            --bg-card: #1e293b;
+            --bg-card-hover: #334155;
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-accent: #60a5fa;
+            --text-accent-hover: #3b82f6;
+            --text-gradient-start: #c084fc;
+            --text-gradient-end: #f472b6;
+            
+            --border-primary: #334155;
+            --border-secondary: #475569;
+            --shadow-primary: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+            --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+            --shadow-accent: 0 10px 15px -3px rgba(96, 165, 250, 0.3), 0 4px 6px -2px rgba(96, 165, 250, 0.3);
+            
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+            --gradient-bg: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.2), transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.2), transparent 50%);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--gradient-bg);
+            transition: all 0.3s ease;
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Enhanced Modern Navigation */
+        .modern-nav {
+            background: rgba(var(--bg-secondary), 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-primary);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            /* max-width: 1280px; */
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-accent);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            color: var(--text-accent);
+            background: rgba(var(--text-accent), 0.1);
+            transform: translateY(-2px);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: var(--gradient-accent);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .nav-link:hover::after {
+            width: 80%;
+        }
+
+        /* Enhanced Theme Toggle */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--text-accent);
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--text-accent);
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 25px rgba(var(--text-accent), 0.4);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 0.75rem;
+            width: 3rem;
+            height: 3rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            border-color: var(--text-accent);
+            background: rgba(var(--text-accent), 0.1);
+        }
+
+        /* Enhanced Modern Hero Section */
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(var(--bg-primary), 0.9) 0%, rgba(var(--bg-secondary), 0.9) 100%);
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 800;
+            margin-bottom: 2rem;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.7;
+            font-weight: 400;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Enhanced Modern Button Styles */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1.05rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 30px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 2px solid var(--border-primary);
+            box-shadow: var(--shadow-primary);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-secondary);
+        }
+
+        /* Enhanced Modern Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-bg);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover::after {
+            opacity: 0.1;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-secondary);
+            border-color: var(--border-secondary);
+        }
+
+        /* Enhanced Modern Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .dashboard-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .dashboard-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .dashboard-card:hover::before {
+            opacity: 1;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-secondary);
+            border-color: var(--border-secondary);
+        }
+
+        .card-icon {
+            width: 5rem;
+            height: 5rem;
+            margin: 0 auto 2rem;
+            background: var(--gradient-accent);
+            border-radius: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 8px 25px rgba(var(--text-accent), 0.3);
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced Modern News Section */
+        .news-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2.5rem;
+            margin: 4rem 0;
+        }
+
+        .news-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .news-card:hover {
+            transform: translateY(-12px);
+            box-shadow: var(--shadow-secondary);
+            border-color: var(--border-secondary);
+        }
+
+        .news-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: var(--gradient-primary);
+        }
+
+        .news-content {
+            padding: 2.5rem;
+        }
+
+        .news-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            color: var(--text-primary);
+        }
+
+        .news-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced Modern Content Sections */
+        .content-section {
+            padding: 8rem 0;
+            position: relative;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3.5rem;
+            margin: 4rem 0;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 3.5rem;
+            transition: all 0.4s ease;
+            position: relative;
+            box-shadow: var(--shadow-primary);
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-secondary);
+            border-color: var(--border-secondary);
+        }
+
+        .content-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .content-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        /* Enhanced Modern Footer */
+        .modern-footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-primary);
+            padding: 1.05rem 0;
+            margin-top: auto;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Enhanced Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 2rem;
+            }
+
+            .dashboard-card {
+                padding: 2rem;
+            }
+
+            .content-card {
+                padding: 2.5rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.6s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Enhanced Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-secondary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-accent);
+        }
+
+        /* Enhanced Focus Styles */
+        :focus {
+            outline: 2px solid var(--text-accent);
+            outline-offset: 2px;
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Additional utility classes for better visibility */
+        .text-bright {
+            color: var(--text-primary) !important;
+        }
+
+        .text-dim {
+            color: var(--text-secondary) !important;
+        }
+
+        .text-muted {
+            color: var(--text-tertiary) !important;
+        }
+
+        .bg-surface {
+            background: var(--bg-card) !important;
+        }
+
+        .bg-background {
+            background: var(--bg-primary) !important;
+        }
+
+        .border-subtle {
+            border-color: var(--border-primary) !important;
+        }
+
+        .shadow-soft {
+            box-shadow: var(--shadow-primary) !important;
+        }
+
+        .shadow-strong {
+            box-shadow: var(--shadow-secondary) !important;
+         }
+ 
+        .news-image {
+             position: relative;
+             width: 100%;
+             padding-top: 56.25%; /* 16:9 aspect ratio */
+             overflow: hidden;
+             border-radius: 12px 12px 0 0; /* If card has rounded corners */
+         }
+         
+         .news-image img {
+             position: absolute;
+             top: 0;
+             left: 0;
+             width: 100%;
+             height: 100%;
+             object-fit: cover;
+             object-position: center;
+             display: block;
+         }
+
+          /* Profile Container */
+         /* Profile Item */
+       .profile-item {
+           position: relative;
+           display: flex;
+           align-items: center;
+       }
+       
+       .profile-container {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           cursor: pointer;
+           padding: 6px 12px;
+           border-radius: 25px;
+           transition: all 0.3s ease;
+           background: rgba(255, 255, 255, 0.05);
+       }
+       
+       .profile-container:hover {
+           background: rgba(255, 255, 255, 0.1);
+       }
+       
+       .profile-pic {
+           width: 50px;
+           height: 50px;
+           border-radius: 50%;
+           object-fit: cover;
+           border: 2px solid #1eff00ff;
+       }
+       
+       .profile-name {
+           font-size: 14px;
+           font-weight: 500;
+          
+           text-transform: capitalize;
+           max-width: 120px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+       }
+       
+       .dropdown-icon {
+           font-size: 12px;
+           
+           transition: transform 0.3s ease;
+       }
+       
+       .profile-container:hover .dropdown-icon {
+           transform: rotate(180deg);
+       }
+       
+       /* Profile Dropdown */
+       .profile-dropdown {
+           display: none;
+           position: absolute;
+           top: calc(100% + 10px);
+           right: 0;
+           background: #1e1e30;
+           border-radius: 10px;
+           min-width: 200px;
+           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+           overflow: hidden;
+           z-index: 1001;
+           opacity: 0;
+           transform: translateY(-10px);
+           transition: all 0.3s ease;
+           border: 1px solid rgba(255, 255, 255, 0.1);
+       }
+       
+       .profile-dropdown.show {
+           display: block;
+           opacity: 1;
+           transform: translateY(0);
+       }
+       
+       .profile-dropdown a {
+           display: flex;
+           align-items: center;
+           gap: 12px;
+           padding: 12px 18px;
+           color: #fff;
+           text-decoration: none;
+           font-size: 14px;
+           font-weight: 500;
+           transition: all 0.3s ease;
+           border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+       }
+       
+       .profile-dropdown a:last-child {
+           border-bottom: none;
+       }
+       
+       .profile-dropdown a:hover {
+           background: rgba(0, 212, 255, 0.1);
+           color: #00d4ff;
+           padding-left: 22px;
+       }
+       
+       .profile-dropdown a i {
+           font-size: 16px;
+           width: 20px;
+       }
+       
+       
+       
+       .theme-toggle:hover {
+           background: rgba(255, 255, 255, 0.2);
+           transform: rotate(20deg);
+       }
+       @media (max-width: 768px) {
+       .profile-dropdown {
+        position: static;
+        display: none;
+        margin-top: 8px;
+        box-shadow: none;
+        opacity: 1;
+        transform: none;
+       }
+
+       .profile-dropdown.show {
+        display: block;
+        }
+      }
+
+      /* discord msg css */
+
+ 
+    #statusMsg {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin-top: 1rem;
+    }
+    
+    #statusMsg:empty {
+        display: none;
+    }
+    
+    /* Success message */
+    #statusMsg[data-status="success"] {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    
+    /* Error message */
+    #statusMsg[data-status="error"] {
+        background: rgba(239, 68, 68, 0.1);
+        color: #ef4444;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    
+    /* Loading message */
+    #statusMsg[data-status="loading"] {
+        background: rgba(102, 126, 234, 0.1);
+        color: var(--text-accent);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+
+
+
+
+
+
+
+    </style>
+           
+          <script>
+            document.addEventListener("DOMContentLoaded", function () {
+            
+                const dropdown = document.getElementById("profileDropdown");
+                const profileContainer = document.querySelector(".profile-container");
+                const navLinks = document.querySelector(".nav-links");
+            
+                // Toggle profile dropdown
+                window.toggleProfileMenu = function (event) {
+                    event.stopPropagation();
+                    dropdown.classList.toggle("show");
+                    profileContainer.classList.toggle("active");
+                };
+            
+                // Close dropdown ONLY when clicking outside profile
+                document.addEventListener("click", function (event) {
+                    if (
+                        !profileContainer.contains(event.target) &&
+                        !dropdown.contains(event.target)
+                    ) {
+                        dropdown.classList.remove("show");
+                        profileContainer.classList.remove("active");
+                    }
+                });
+            
+                // Prevent dropdown from closing when clicking inside it
+                dropdown.addEventListener("click", function (event) {
+                    event.stopPropagation();
+                });
+            
+                // Close dropdown when mobile menu closes
+                const observer = new MutationObserver(() => {
+                    if (!navLinks.classList.contains("active")) {
+                        dropdown.classList.remove("show");
+                        profileContainer.classList.remove("active");
+                    }
+                });
+            
+                observer.observe(navLinks, { attributes: true, attributeFilter: ["class"] });
+            
+            });
+         </script>
+
+
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg"></div>
+    <div id="particles-js" class="particles-container"></div>
+
+    <!-- Enhanced Modern Navigation -->
+    <nav class="modern-nav" id ="navbar">
+        <div class="nav-container">
+            <div class="logo">
+               <div class="d-flex align-items-center nav-brand">
+                  <img src="{% static 'images/Q-Shaastra_ Logo_.png' %}" alt="Q-shaastra Logo"
+                   style="height: 60px; width: auto; margin-right: 2px; object-fit: contain;">
+                </div>
+                Q-Shaastra
+            </div>
+
+            <div class="nav-links" id ="navMenu" >
+                {#  <a href="#" class="nav-link">Home</a>  #}
+                <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Market Analysis</a>
+                <a href="{% url 'about' %}" class="nav-link"><i class="fas fa-info-circle"></i> About Q-Shaastra</a>
+                <a href="#dashboard" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#news" class="nav-link"><i class="fas fa-newspaper"></i> News</a>
+                <a href="#community" class="nav-link"><i class="fas fa-users"></i> Community</a>
+                 <!-- Profile Dropdown -->
+                  <div class="profile-item">
+                    <div class="profile-container" onclick="toggleProfileMenu(event)">
+                        <i class="fas fa-user"></i>
+                      {% if user.profile.profile_photo %}
+                        <img src="{{ user.profile.profile_photo.url }}" alt="Profile" class="profile-pic">
+                      {% else %}
+                        <img src="{% static 'images/default_profile.jpg' %}" alt="Default" class="profile-pic">
+                      {% endif %}              
+
+                      <span class="profile-name">
+                        {% if user.profile.name %}
+                          {{ user.profile.name }}
+                        {% else %}
+                          {{ user.first_name }}
+                        {% endif %}
+                      </span>
+                      <span class="dropdown-icon">▾</span>
+                    </div>              
+
+                    <!-- Dropdown Menu (positioned absolutely for better visibility) -->
+                     <div id="profileDropdown" class="profile-dropdown">
+                      <a href="{% url 'profile' %}"><i class="fas fa-user"></i>View Profile</a>
+                      <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i>Logout</a>
+                     </div>
+                 </div>
+                
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
+            </div>
+
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Enhanced Modern Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">
+                Welcome to Quantum
+                <span style="background: var(--gradient-accent); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Computing</span>
+            </h1>
+            <p class="hero-subtitle fade-in">
+                Explore the revolutionary world of quantum mechanics and unlock the future of computation. 
+                Discover cutting-edge algorithms, simulations, and breakthrough technologies that are reshaping our digital landscape.
+            </p>
+            <div class="hero-cta fade-in">
+                <a href="#dashboard" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    Explore Dashboard
+                </a>
+                <a href="#news" class="btn btn-secondary">
+                    <i class="fas fa-newspaper"></i>
+                    Latest News
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Modern Dashboard Section -->
+    <section id="dashboard" class="content-section">
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Quantum Dashboard</h2>
+                <p class="section-subtitle">
+                    Access powerful quantum computing tools, resources, and educational materials in one unified platform
+                </p>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card slide-in-left">
+                    <div class="card-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <h3 class="card-title">Introduction to Quantum Computing</h3>
+                    <p class="card-description">
+                        Master the fundamentals of quantum mechanics and explore advanced quantum computing concepts with interactive tutorials and comprehensive guides.
+                    </p>
+                    <a href="#content" class="btn btn-primary">
+                        <i class="fas fa-book-open"></i>
+                        Learn More
+                    </a>
+                </div>
+
+                <div class="dashboard-card slide-in-right">
+                    <div class="card-icon">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="card-title">Quantum Algorithms</h3>
+                    <p class="card-description">
+                        Explore revolutionary algorithms like Shor's and Grover's that solve complex problems exponentially faster than classical computers.
+                    </p>
+                    <a href="#algorithms" class="btn btn-primary">
+                        <i class="fas fa-code"></i>
+                        Explore
+                    </a>
+                </div>
+
+                <div class="dashboard-card slide-in-left">
+                    <div class="card-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3 class="card-title">Quantum Simulator</h3>
+                    <p class="card-description">
+                        Run quantum experiments and simulations with our state-of-the-art quantum simulator designed for education and research.
+                    </p>
+                    <div style="margin-top: 1.5rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                            <span style="color: var(--text-secondary);">Version v1.0</span>
+                            <span style="color: #10b981; font-weight: 600;">Available</span>
+                        </div>
+                        <a href="{% url 'simulator' %}" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-play"></i>
+                            Launch Simulator
+                        </a>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.75rem;">
+                            <span style="color: var(--text-secondary);">Version v2.0</span>
+                            <span style="color: #f59e0b; font-weight: 600;">Coming Soon</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card slide-in-right">
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="card-title">AI Shorts: Quantum Videos</h3>
+                    <p class="card-description">
+                       Watch quick, AI-explained videos on core quantum concepts.
+                    </p>
+
+                    <!-- Example Embedded YouTube Short or Link -->
+                   <div class="video-preview">
+                     <iframe width="100%" height="180" src="{% static 'Ai_video/Quantum Tech Revolutionizes Life-VEED.mp4' %}"
+                     title="Quantum Computing in 5 Minutes" frameborder="0"
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                     allowfullscreen></iframe>
+                  </div>
+                    <a href="https://www.youtube.com/results?search_query=quantum+computing+shorts" target="_blank" class="btn btn-secondary">
+                        <i class="fab fa-youtube"></i>
+                        Watch Videos
+                    </a>
+                </div>
+
+                <div class="dashboard-card slide-in-left">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <h3 class="card-title">Events & Functions</h3>
+                    <p class="card-description">
+                        Join quantum computing events, workshops, and conferences worldwide to connect with experts and enthusiasts.
+                    </p>
+                    <a href="https://www.youtube.com/watch?v=GtYyR66piAc&list=PLMK_P-_jhhHs7KbQ6rWOfHdHMIb18wVia" target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-users"></i>
+                        Join Events
+                    </a>
+                </div>
+
+                <div class="dashboard-card slide-in-right">
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="card-title">Resources</h3>
+                    <p class="card-description">
+                        Access premium books, research papers, and tutorials on quantum computing curated by experts.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+                        <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
+                            <i class="fas fa-file-pdf"></i>
+                            Quantum Basics (PDF)
+                        </a>
+                        <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
+                            <i class="fas fa-file-pdf"></i>
+                            Quantum Algorithms (PDF)
+                        </a>
+                        <a href="#" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem 1rem;">
+                            <i class="fas fa-file-pdf"></i>
+                            GHZ Research (PDF)
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Modern News Section -->
+    <section id="news" class="news-section">
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header fade-in">
+                <h2 class="section-title">🌎 Explore Quantum Innovations</h2>
+                <p class="section-subtitle">
+                    Stay updated with the latest breakthroughs in quantum computing, sensing, materials, and communication
+                </p>
+            </div>
+
+            <div class="news-grid">
+                <div class="news-card fade-in">
+                    <div class="news-image">
+                        <img src="{% static 'images/quantum-computing.jpg' %}" alt="Quantum Computing">
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">💻 Quantum Computing</h3>
+                        <p class="news-description">
+                            Breakthroughs in quantum algorithms and supercomputing power that are revolutionizing computation across industries.
+                        </p>
+                        <a href="{% url 'quantum_news' %}" class="btn btn-primary" style="width: 100%;">
+                            Read More
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="news-card fade-in">
+                    <div class="news-image" >
+                       <img src="{% static 'images/quantum-sensing.jpg' %}" alt="Quantum Sensing"> 
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">📡 Quantum Sensing</h3>
+                        <p class="news-description">
+                            High-precision sensors transforming industries with unprecedented accuracy and sensitivity for measurements.
+                        </p>
+                        <a href="{% url 'quantum_news' %}" class="btn btn-primary" style="width: 100%;">
+                            Read More
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="news-card fade-in">
+                    <div class="news-image" >
+                         <img src="{% static 'images/quantum-materials.jpg' %}" alt="Quantum Materials">
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">🔬 Quantum Materials</h3>
+                        <p class="news-description">
+                            Discover new materials enabling quantum technologies and revolutionary applications in various fields.
+                        </p>
+                        <a href="{% url 'quantum_news' %}" class="btn btn-primary" style="width: 100%;">
+                            Read More
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="news-card fade-in">
+                    <div class="news-image" >
+                         <img src="{% static 'images/quantum-communication.jpg' %}" alt="Quantum Communication">
+                    </div>
+                    <div class="news-content">
+                        <h3 class="news-title">📶 Quantum Communication</h3>
+                        <p class="news-description">
+                            Secure, quantum-encrypted communication networks for the future of data security and privacy.
+                        </p>
+                        <a href="{% url 'quantum_news' %}" class="btn btn-primary" style="width: 100%;">
+                            Read More
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 4rem;">
+                <a href="{% url 'quantum_news' %}" class="btn btn-primary" style="font-size: 1.125rem; padding: 1rem 2rem;">
+                    Explore More Quantum News
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+                <!-- Enhanced Modern Community Section -->
+                <section id="community" class="content-section" >
+                    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+                        <div class="section-header fade-in">
+                            <h2 class="section-title">Join Our Quantum Community</h2>
+                            <p class="section-subtitle">
+                                Connect with quantum enthusiasts, researchers, and professionals worldwide
+                            </p>
+                        </div>
+                        
+                        <!-- Fixed responsive grid -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; align-items: start;">
+                            
+                            <!-- Discord Community Card -->
+                            <div class="card fade-in">
+                                <h3 class="content-title" style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <i class="fab fa-discord" style="color: var(--text-accent); font-size: 1.5rem;"></i>
+                                    Discord Community
+                                </h3>
+                                <p class="content-text">
+                                    Join our active Discord community to discuss quantum computing, share knowledge, and collaborate on projects with enthusiasts worldwide.
+                                </p>
+                                <div style="margin: 2.5rem 0;">
+                                    <iframe 
+                                        src="https://discord.com/widget?id=1438045693057962047&theme=dark" 
+                                        width="100%" 
+                                        height="350" 
+                                        allowtransparency="true" 
+                                        frameborder="0" 
+                                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" 
+                                        style="border-radius: 1rem; max-width: 100%;">
+                                    </iframe>
+                                </div>
+                                <a href="https://discord.gg/G6uprSYJ" target="_blank" class="btn btn-primary" style="width: 100%;">
+                                    <i class="fab fa-discord"></i>
+                                    Join Discord
+                                </a>
+                            </div>
+                            
+                            <!-- Send Message Card -->
+                            <div class="card fade-in">
+                                <h3 class="content-title" style="display: flex; align-items: center; gap: 0.75rem;">
+                                    <i class="fas fa-envelope" style="color: var(--text-accent); font-size: 1.5rem;"></i>
+                                    Send Message
+                                </h3>
+                                <p class="content-text">
+                                    Send a message to our Discord community and get instant feedback from quantum computing experts and enthusiasts.
+                                </p>
+                                <form id="discordForm" style="margin-top: 2.5rem;">
+                                    <input 
+                                        type="text" 
+                                        id="usernameInput" 
+                                        placeholder="Your Name" 
+                                        style="width: 100%; margin-bottom: 1rem; padding: 0.75rem; border: 2px solid var(--border-primary); border-radius: 0.5rem; background: var(--bg-primary); color: var(--text-primary); box-sizing: border-box;">
+                                    
+                                    <textarea 
+                                        id="msgInput" 
+                                        placeholder="Your message..." 
+                                        rows="4" 
+                                        style="width: 100%; margin-bottom: 1rem; padding: 0.75rem; border: 2px solid var(--border-primary); border-radius: 0.5rem; background: var(--bg-primary); color: var(--text-primary); resize: vertical; box-sizing: border-box;" 
+                                        required>
+                                    </textarea>
+                                    
+                                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                                        <i class="fas fa-paper-plane"></i>
+                                        Send Message
+                                    </button>
+                                    
+                                    <p id="statusMsg" style="margin-top: 1rem; font-size: 0.875rem; color: var(--text-secondary);"></p>
+                                </form>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </section>
+
+<!-- Enhanced Modern Content Sections -->
+<section id="content" class="content-section">
+    <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+        <div class="section-header fade-in">
+            <h2 class="section-title">Quantum Computing Fundamentals</h2>
+            <p class="section-subtitle">
+                Master the core concepts that power the quantum computing revolution
+            </p>
+        </div>
+
+        <div class="content-grid">
+            <div class="content-card slide-in-left">
+                <h3 class="content-title">What is Quantum Computing?</h3>
+                <p class="content-text">
+                    Quantum computing is a revolutionary field that leverages quantum mechanics principles like superposition and entanglement to perform calculations impossible for classical computers. Unlike classical bits that exist as either 0 or 1, quantum bits (qubits) can exist in multiple states simultaneously, enabling parallel processing at unprecedented scales.
+                </p>
+                <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0; line-height: 1.8;">
+                    <li style="margin-bottom: 0.5rem;">Superposition enables qubits to exist in multiple states</li>
+                    <li style="margin-bottom: 0.5rem;">Entanglement creates correlations between qubits</li>
+                    <li style="margin-bottom: 0.5rem;">Quantum interference amplifies correct answers</li>
+                </ul>
+            </div>
+
+            <div class="content-card slide-in-right">
+                <h3 class="content-title">Why Quantum Computing?</h3>
+                <p class="content-text">
+                    Quantum computers excel at solving specific problems that are intractable for classical computers, such as simulating molecular interactions for drug discovery, optimizing complex systems, and breaking current cryptographic methods. They offer exponential speedup for certain algorithms.
+                </p>
+                <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0; line-height: 1.8;">
+                    <li style="margin-bottom: 0.5rem;">Exponential speedup for specific algorithms</li>
+                    <li style="margin-bottom: 0.5rem;">Revolutionary applications in cryptography</li>
+                    <li style="margin-bottom: 0.5rem;">Breakthrough potential in drug discovery</li>
+                </ul>
+            </div>
+
+            <div class="content-card slide-in-left">
+                <h3 class="content-title">Key Applications</h3>
+                <p class="content-text">
+                    Quantum computing is transforming multiple industries with applications ranging from secure communications to artificial intelligence optimization and financial modeling.
+                </p>
+                <div class="applications-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-top: 2rem;">
+                    <div class="application-item" style="background: var(--bg-secondary); padding: 1.25rem; border-radius: 0.75rem; text-align: center; transition: all 0.3s ease;">
+                        <i class="fas fa-lock" style="color: var(--text-accent); margin-bottom: 0.75rem; font-size: 1.5rem; display: block;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem; word-wrap: break-word;">Quantum Cryptography</div>
+                    </div>
+                    <div class="application-item" style="background: var(--bg-secondary); padding: 1.25rem; border-radius: 0.75rem; text-align: center; transition: all 0.3s ease;">
+                        <i class="fas fa-brain" style="color: var(--text-accent); margin-bottom: 0.75rem; font-size: 1.5rem; display: block;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem; word-wrap: break-word;">Machine Learning</div>
+                    </div>
+                    <div class="application-item" style="background: var(--bg-secondary); padding: 1.25rem; border-radius: 0.75rem; text-align: center; transition: all 0.3s ease;">
+                        <i class="fas fa-search" style="color: var(--text-accent); margin-bottom: 0.75rem; font-size: 1.5rem; display: block;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem; word-wrap: break-word;">Optimization</div>
+                    </div>
+                    <div class="application-item" style="background: var(--bg-secondary); padding: 1.25rem; border-radius: 0.75rem; text-align: center; transition: all 0.3s ease;">
+                        <i class="fas fa-flask" style="color: var(--text-accent); margin-bottom: 0.75rem; font-size: 1.5rem; display: block;"></i>
+                        <div style="font-weight: 600; font-size: 0.9rem; word-wrap: break-word;">Drug Discovery</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section id="algorithms" class="content-section" >
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Revolutionary Quantum Algorithms</h2>
+                <p class="section-subtitle">
+                    Discover the algorithms that make quantum computing exponentially powerful and transformative
+                </p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-card slide-in-left">
+                    <h3 class="content-title">Shor's Algorithm</h3>
+                    <p class="content-text">
+                        Shor's Algorithm efficiently factors large integers into their prime components, threatening current cryptographic systems. This quantum algorithm provides exponential speedup over the best-known classical factoring algorithms.
+                    </p>
+                    <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                        <strong style="color: var(--text-accent);">Key Impact:</strong>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            Could break RSA encryption, driving the need for post-quantum cryptography and new security standards.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card slide-in-right">
+                    <h3 class="content-title">Grover's Algorithm</h3>
+                    <p class="content-text">
+                        Grover's Algorithm provides quadratic speedup for searching unsorted databases. It can find an element in a database of N items in roughly √N steps, compared to N/2 steps classically.
+                    </p>
+                    <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                        <strong style="color: var(--text-accent);">Key Impact:</strong>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            Accelerates database searches and optimization problems across multiple industries.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="content-card slide-in-left">
+                    <h3 class="content-title">Quantum Fourier Transform</h3>
+                    <p class="content-text">
+                        The Quantum Fourier Transform (QFT) is a key component in many quantum algorithms, including Shor's Algorithm. It enables the transformation of quantum states into the frequency domain, facilitating efficient calculations.
+                    </p>
+                    <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 0.75rem; margin: 1.5rem 0;">
+                        <strong style="color: var(--text-accent);">Key Impact:</strong>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">
+                            Essential for quantum phase estimation and period finding in various quantum algorithms.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    </section>
+
+    <!-- Enhanced Modern Footer -->
+    <footer class="modern-footer">
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <div>
+                    <h4 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; margin-bottom: 1.25rem; color: var(--text-primary); font-size: 1.25rem;">Quantum-Shaastra</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                        Exploring the revolutionary world of quantum computing and its infinite possibilities for transforming technology and society.
+                    </p>
+                </div>
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1.25rem; color: var(--text-primary); font-size: 1.1rem;">Quick Links</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="#home" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Home</a>
+                        <a href="#dashboard" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Dashboard</a>
+                        <a href="#news" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">News</a>
+                        <a href="#community" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Community</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1.25rem; color: var(--text-primary); font-size: 1.1rem;">Resources</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="#content" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Learn</a>
+                        <a href="#algorithms" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Algorithms</a>
+                        <a href="#simulator" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Simulator</a>
+                        <a href="#news" style="color: var(--text-secondary); text-decoration: none; font-size: 0.95rem; transition: color 0.3s ease;">Latest News</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="font-weight: 600; margin-bottom: 1.25rem; color: var(--text-primary); font-size: 1.1rem;">Connect</h4>
+                    <div style="display: flex; gap: 1.25rem;">
+                        <a href="https://discord.gg/G6uprSYJ" target="_blank" style="color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-discord"></i>
+                        </a>
+                        <a href="#" style="color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" style="color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" style="color: var(--text-secondary); font-size: 1.5rem; transition: color 0.3s ease;">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid var(--border-primary); padding-top: 2.5rem; text-align: center;">
+                <p class="footer-text">
+                    © 2025 CDAC-Patna | Quantum-Shaastra. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Enhanced Scripts -->
+    <script>
+        // Theme Toggle Function
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('themeIcon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.className = 'fas fa-moon';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.className = 'fas fa-sun';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                document.getElementById('themeIcon').className = 'fas fa-sun';
+            }
+
+            // Initialize particles.js
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: '#8b5cf6' },
+                        shape: { type: 'circle' },
+                        opacity: { value: 0.6, random: true },
+                        size: { value: 4, random: true },
+                        line_linked: {
+                            enable: true,
+                            distance: 200,
+                            color: '#8b5cf6',
+                            opacity: 0.3,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 3,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'out',
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: 'canvas',
+                        events: {
+                            onhover: { enable: true, mode: 'repulse' },
+                            onclick: { enable: true, mode: 'push' },
+                            resize: true
+                        }
+                    },
+                    retina_detect: true
+                });
+            }
+
+            // Initialize GSAP ScrollTrigger if available
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                
+                // Animate elements on scroll
+                gsap.utils.toArray('.fade-in').forEach(element => {
+                    gsap.fromTo(element, 
+                        { opacity: 0, y: 30 },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 95%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        }
+                    );
+                });
+
+                gsap.utils.toArray('.slide-in-left').forEach(element => {
+                    gsap.fromTo(element,
+                        { opacity: 0, x: -50 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 95%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        }
+                    );
+                });
+
+                gsap.utils.toArray('.slide-in-right').forEach(element => {
+                    gsap.fromTo(element,
+                        { opacity: 0, x: 50 },
+                        {
+                            opacity: 1,
+                            x: 0,
+                            duration: 0.8,
+                            ease: 'power2.out',
+                            scrollTrigger: {
+                                trigger: element,
+                                start: 'top 95%',
+                                toggleActions: 'play none none reverse'
+                            }
+                        }
+                    );
+                });
+            }
+
+            // Manual fallback for scroll animations
+            if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
+                const observerOptions = {
+                    threshold: 0.1,
+                    rootMargin: '0px 0px -100px 0px'
+                };
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, observerOptions);
+
+                document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+        });
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const isOpen = navLinks.style.display === 'flex';
+            
+            if (isOpen) {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = 'var(--bg-secondary)';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.padding = '2rem';
+                navLinks.style.boxShadow = 'var(--shadow-secondary)';
+                navLinks.style.backdropFilter = 'blur(20px)';
+                navLinks.style.borderTop = '1px solid var(--border-primary)';
+                navLinks.style.gap = '1rem';
+                navLinks.style.zIndex = '40';
+            }
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const isClickInsideNav = navLinks.contains(event.target);
+            const isClickOnToggle = mobileMenuToggle.contains(event.target);
+            
+            if (!isClickInsideNav && !isClickOnToggle && navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            }
+        });
+
+        // Discord form submission
+ // Discord form submission - CORRECTED VERSION
+document.getElementById("discordForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById("usernameInput").value.trim() || "Anonymous";
+    const message = document.getElementById("msgInput").value.trim();
+    const statusMsg = document.getElementById("statusMsg");
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    
+    // Validation
+    if (!message) {
+        statusMsg.textContent = "⚠️ Please enter a message.";
+        statusMsg.style.color = "#ef4444";
+        return;
+    }
+    
+    // Show loading state
+    const originalBtnText = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+    statusMsg.textContent = "📤 Sending message...";
+    statusMsg.style.color = "var(--text-accent)";
+    
+    try {
+        // Get CSRF token from cookie or meta tag
+        const csrftoken = getCookie('csrftoken') || document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+        
+        const response = await fetch("/send_message/", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+                "X-CSRFToken": csrftoken,
+            },
+            body: new URLSearchParams({
+                username: username,
+                message: message,
+            })
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok && data.status === "success") {
+            statusMsg.textContent = "✅ Message sent to Discord successfully!";
+            statusMsg.style.color = "#10b981";
+            document.getElementById("msgInput").value = "";
+            document.getElementById("usernameInput").value = "";
+        } else {
+            statusMsg.textContent = "❌ " + (data.message || "Failed to send message");
+            statusMsg.style.color = "#ef4444";
+        }
+    } catch (error) {
+        console.error("Discord send error:", error);
+        statusMsg.textContent = "❌ Network error. Please try again.";
+        statusMsg.style.color = "#ef4444";
+    } finally {
+        // Restore button state
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+    }
+});
+
+// Helper function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
+
+
+
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.modern-nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(var(--bg-secondary), 0.98)';
+                nav.style.boxShadow = 'var(--shadow-secondary)';
+            } else {
+                nav.style.background = 'rgba(var(--bg-secondary), 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+
+        // Add hover effects to cards
+        document.querySelectorAll('.card, .dashboard-card, .news-card, .content-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add loading animation for buttons
+        document.querySelectorAll('.btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (this.href && this.href.includes('#')) {
+                    // It's an anchor link, don't show loading
+                    return;
+                }
+                
+                const originalText = this.innerHTML;
+                this.innerHTML = '<span class="loading"></span> Loading...';
+                this.disabled = true;
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.disabled = false;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
