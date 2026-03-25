@@ -22,6 +22,9 @@
     
     <!-- Particles.js for background -->
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+     <!-- ✅ FIX 1: Chart.js was completely missing — added here -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
     
     <style>
         /* CSS Variables for Enhanced Theme System */
@@ -1062,7 +1065,7 @@
                      </div>
                  </div>
                 
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" id="themeToggleBtn">
                     <i class="fas fa-moon" id="themeIcon"></i>
                 </button>
             </div>
@@ -1776,6 +1779,7 @@
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
+            const nav = document.querySelector('.modern-nav');
             
             if (body.getAttribute('data-theme') === 'dark') {
                 body.removeAttribute('data-theme');
@@ -1949,82 +1953,82 @@
         });
 
         // Discord form submission
- // Discord form submission - CORRECTED VERSION
-document.getElementById("discordForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-    
-    const username = document.getElementById("usernameInput").value.trim() || "Anonymous";
-    const message = document.getElementById("msgInput").value.trim();
-    const statusMsg = document.getElementById("statusMsg");
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    
-    // Validation
-    if (!message) {
-        statusMsg.textContent = "⚠️ Please enter a message.";
-        statusMsg.style.color = "#ef4444";
-        return;
-    }
-    
-    // Show loading state
-    const originalBtnText = submitBtn.innerHTML;
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-    statusMsg.textContent = "📤 Sending message...";
-    statusMsg.style.color = "var(--text-accent)";
-    
-    try {
-        // Get CSRF token from cookie or meta tag
-        const csrftoken = getCookie('csrftoken') || document.querySelector('[name=csrfmiddlewaretoken]')?.value;
-        
-        const response = await fetch("/send_message/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-                "X-CSRFToken": csrftoken,
-            },
-            body: new URLSearchParams({
-                username: username,
-                message: message,
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (response.ok && data.status === "success") {
-            statusMsg.textContent = "✅ Message sent to Discord successfully!";
-            statusMsg.style.color = "#10b981";
-            document.getElementById("msgInput").value = "";
-            document.getElementById("usernameInput").value = "";
-        } else {
-            statusMsg.textContent = "❌ " + (data.message || "Failed to send message");
-            statusMsg.style.color = "#ef4444";
-        }
-    } catch (error) {
-        console.error("Discord send error:", error);
-        statusMsg.textContent = "❌ Network error. Please try again.";
-        statusMsg.style.color = "#ef4444";
-    } finally {
-        // Restore button state
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-    }
-});
-
-// Helper function to get CSRF token from cookies
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
+        // Discord form submission - CORRECTED VERSION
+        document.getElementById("discordForm").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById("usernameInput").value.trim() || "Anonymous";
+            const message = document.getElementById("msgInput").value.trim();
+            const statusMsg = document.getElementById("statusMsg");
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            
+            // Validation
+            if (!message) {
+                statusMsg.textContent = "⚠️ Please enter a message.";
+                statusMsg.style.color = "#ef4444";
+                return;
             }
+            
+            // Show loading state
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            statusMsg.textContent = "📤 Sending message...";
+            statusMsg.style.color = "var(--text-accent)";
+            
+            try {
+                // Get CSRF token from cookie or meta tag
+                const csrftoken = getCookie('csrftoken') || document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+                
+                const response = await fetch("/send_message/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded",
+                        "X-CSRFToken": csrftoken,
+                    },
+                    body: new URLSearchParams({
+                        username: username,
+                        message: message,
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.status === "success") {
+                    statusMsg.textContent = "✅ Message sent to Discord successfully!";
+                    statusMsg.style.color = "#10b981";
+                    document.getElementById("msgInput").value = "";
+                    document.getElementById("usernameInput").value = "";
+                } else {
+                    statusMsg.textContent = "❌ " + (data.message || "Failed to send message");
+                    statusMsg.style.color = "#ef4444";
+                }
+            } catch (error) {
+                console.error("Discord send error:", error);
+                statusMsg.textContent = "❌ Network error. Please try again.";
+                statusMsg.style.color = "#ef4444";
+            } finally {
+                // Restore button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+            }
+        });
+
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
         }
-    }
-    return cookieValue;
-}
 
 
 
@@ -2205,5 +2209,7 @@ function getCookie(name) {
                 });
             }
         }
+
+    </script>
 </body>
 </html>

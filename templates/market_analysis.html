@@ -5,148 +5,344 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quantum Technology Market Analysis - Q-Shaastra</title>
-    
-    <!-- Modern Fonts -->
+
+    <!-- Fonts — consistent with home.html -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Modern Icons -->
+
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Bootstrap for grid -->
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Chart.js for market charts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    
+
+    <!-- ✅ FIX 1: Chart.js 4.4.0 — consistent with home.html (was 3.9.1) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
     <style>
+        /* ============================================================
+           CSS VARIABLES — identical structure to home.html
+           ============================================================ */
         :root {
             --bg-primary: #ffffff;
             --bg-secondary: #f8fafc;
+            --bg-tertiary: #e2e8f0;
             --bg-card: #ffffff;
+
             --text-primary: #0f172a;
             --text-secondary: #475569;
+            --text-tertiary: #64748b;
             --text-accent: #3b82f6;
+
             --border-primary: #e2e8f0;
-            --shadow-primary: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-            --shadow-secondary: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --border-secondary: #cbd5e1;
+
+            --shadow-primary: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+            --shadow-secondary: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-accent: 0 10px 15px -3px rgba(59,130,246,0.3);
+
             --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --gradient-bg: radial-gradient(circle at 20% 80%, rgba(120,119,198,0.3), transparent 50%),
+                           radial-gradient(circle at 80% 20%, rgba(255,119,198,0.3), transparent 50%);
+
+            /* ✅ FIX 2: Safe navbar bg variables — no broken rgba(var(...)) */
+            --nav-bg: rgba(248, 250, 252, 0.95);
+            --nav-bg-scrolled: rgba(248, 250, 252, 0.98);
+
+            /* Table theming */
+            --table-header-bg: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            --table-row-bg: #ffffff;
+            --table-row-hover: #f8fafc;
+            --table-border: #e2e8f0;
+            --table-text: #0f172a;
+
+            /* Highlight box */
+            --highlight-bg: rgba(139, 92, 246, 0.07);
+            --highlight-border: #8b5cf6;
         }
 
         [data-theme="dark"] {
             --bg-primary: #0f172a;
             --bg-secondary: #1e293b;
+            --bg-tertiary: #334155;
             --bg-card: #1e293b;
+
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-accent: #60a5fa;
+
             --border-primary: #334155;
+            --border-secondary: #475569;
+
+            --shadow-primary: 0 1px 3px 0 rgba(0,0,0,0.3), 0 1px 2px 0 rgba(0,0,0,0.2);
+            --shadow-secondary: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -1px rgba(0,0,0,0.2);
+
+            --gradient-accent: linear-gradient(135deg, #c084fc 0%, #f472b6 100%);
+
+            /* ✅ FIX 2: Dark mode nav bg */
+            --nav-bg: rgba(30, 41, 59, 0.95);
+            --nav-bg-scrolled: rgba(30, 41, 59, 0.98);
+
+            /* Table dark mode */
+            --table-row-bg: #1e293b;
+            --table-row-hover: #334155;
+            --table-border: #334155;
+            --table-text: #f8fafc;
+
+            /* Highlight dark */
+            --highlight-bg: rgba(139, 92, 246, 0.12);
+            --highlight-border: #c084fc;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
 
-        .navbar {
-            background: rgba(var(--bg-secondary), 0.95);
+        /* ============================================================
+           NAVBAR — matches home.html structure
+           ============================================================ */
+        .modern-nav {
+            background: var(--nav-bg);
             backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-primary);
-            padding: 1rem 0;
+            padding: 0.85rem 0;
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .navbar-brand {
+        .nav-container {
+            /* max-width: 1280px; */
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
-            font-size: 1.5rem;
+            background-clip: text;
+            text-decoration: none;
         }
 
-        .navbar-brand img {
-            height: 40px;
+        .logo img {
+            height: 50px;
             width: auto;
-            margin-right: 10px;
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
 
         .nav-link {
-            color: var(--text-secondary);
+            color: var(--text-secondary) !important;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.1rem;
+            border-radius: 0.75rem;
             transition: all 0.3s ease;
+            font-size: 0.95rem;
         }
 
         .nav-link:hover {
+            color: var(--text-accent) !important;
+            background: rgba(59, 130, 246, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* ✅ FIX 3: Theme toggle — identical to home.html, no conflicting rules */
+        .theme-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
             color: var(--text-accent);
+            font-size: 1.1rem;
+            box-shadow: var(--shadow-primary);
+            flex-shrink: 0;
         }
 
-        .container-fluid {
-            padding: 0 2rem;
+        .theme-toggle:hover {
+            border-color: var(--text-accent);
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.3);
         }
 
+        .mobile-nav-toggle {
+            background: var(--bg-card);
+            border: 2px solid var(--border-primary);
+            border-radius: 0.75rem;
+            width: 2.75rem;
+            height: 2.75rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================================
+           PAGE HEADER
+           ============================================================ */
         .page-header {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
-            padding: 4rem 2rem;
-            margin-bottom: 3rem;
+            background: linear-gradient(135deg,
+                rgba(139, 92, 246, 0.08) 0%,
+                rgba(236, 72, 153, 0.08) 100%);
+            padding: 5rem 2rem 4rem;
+            margin-bottom: 0;
             border-bottom: 1px solid var(--border-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .page-header-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .page-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 1rem;
+            line-height: 1.15;
         }
 
         .page-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
             max-width: 800px;
+            line-height: 1.7;
         }
 
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-primary);
-            border-radius: 1rem;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow-primary);
-            transition: all 0.3s ease;
+        /* ============================================================
+           MAIN CONTENT WRAPPER
+           ============================================================ */
+        .main-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
         }
 
-        .card:hover {
-            box-shadow: var(--shadow-secondary);
-            transform: translateY(-4px);
-        }
+        /* ============================================================
+           SECTIONS
+           ============================================================ */
+        .section { margin-bottom: 5rem; }
 
-        .card-title {
+        .section-title {
             font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            margin-bottom: 2.5rem;
             color: var(--text-primary);
         }
 
-        .chart-container {
-            position: relative;
-            height: 400px;
+        /* ============================================================
+           CARDS — consistent with home.html
+           ============================================================ */
+        .ma-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-primary);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
             margin-bottom: 2rem;
+            box-shadow: var(--shadow-primary);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
+        .ma-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .ma-card:hover::before { opacity: 1; }
+
+        .ma-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-secondary);
+            border-color: var(--border-secondary);
+        }
+
+        .ma-card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .ma-card-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* ============================================================
+           STAT CARDS
+           ============================================================ */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
         }
@@ -154,217 +350,511 @@
         .stat-card {
             background: var(--bg-card);
             border: 1px solid var(--border-primary);
-            border-radius: 1rem;
+            border-radius: 1.5rem;
             padding: 2rem;
             text-align: center;
             box-shadow: var(--shadow-primary);
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
 
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--gradient-accent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+
         .stat-card:hover {
+            transform: translateY(-6px);
             box-shadow: var(--shadow-secondary);
-            transform: translateY(-4px);
+            border-color: var(--border-secondary);
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
         }
 
         .stat-value {
-            font-size: 2.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.25rem;
             font-weight: 700;
             background: var(--gradient-accent);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin: 1rem 0;
+            background-clip: text;
+            margin: 0.5rem 0;
+            line-height: 1.2;
         }
 
         .stat-label {
             color: var(--text-secondary);
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
-        .section {
-            margin-bottom: 4rem;
+        .stat-sub {
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
         }
 
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 800;
+        /* ============================================================
+           HIGHLIGHT BOX — theme-aware
+           ============================================================ */
+        .highlight {
+            background: var(--highlight-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            border-left: 4px solid var(--highlight-border);
+            margin-bottom: 1.5rem;
+        }
+
+        .highlight h4 {
+            color: var(--text-primary);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight ul {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin: 0;
+            line-height: 2;
+        }
+
+        .highlight ul li { margin-bottom: 0.25rem; }
+
+        /* ============================================================
+           CHART CONTAINERS
+           ============================================================ */
+        .chart-container {
+            position: relative;
+            height: 380px;
             margin-bottom: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        /* ============================================================
+           ✅ FIX 4: TABLE — fully theme-aware, no hardcoded Bootstrap dark class
+           ============================================================ */
+        .ma-table-wrapper {
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-primary);
+            margin-top: 1.5rem;
+        }
+
+        .ma-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        .ma-table thead tr {
+            background: var(--gradient-accent);
+        }
+
+        .ma-table thead th {
+            color: #ffffff !important;
+            font-weight: 700;
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-size: 0.9rem;
+            letter-spacing: 0.02em;
+            border: none;
+        }
+
+        .ma-table tbody tr {
+            background: var(--table-row-bg);
+            border-bottom: 1px solid var(--table-border);
+            transition: background 0.2s ease;
+        }
+
+        .ma-table tbody tr:last-child { border-bottom: none; }
+
+        .ma-table tbody tr:hover { background: var(--table-row-hover); }
+
+        .ma-table tbody td {
+            padding: 1rem 1.25rem;
+            color: var(--text-primary);
+            vertical-align: middle;
+        }
+
+        .ma-table tbody td strong {
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .cagr-badge {
+            display: inline-block;
+            background: var(--gradient-accent);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 0.2rem 0.65rem;
+            border-radius: 999px;
+        }
+
+        /* ============================================================
+           INVESTMENT BOXES — theme-aware
+           ============================================================ */
+        .invest-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .invest-box {
+            background: var(--bg-secondary);
+            padding: 1.75rem;
+            border-radius: 1rem;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .invest-box:hover { transform: translateY(-4px); box-shadow: var(--shadow-secondary); }
+
+        .invest-box h4 {
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
             color: var(--text-primary);
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+        .invest-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
-        }
-
-        .theme-toggle {
-            background: var(--bg-card);
-            border: 2px solid var(--border-primary);
-            border-radius: 50%;
-            width: 2.5rem;
-            height: 2.5rem;
+        .invest-box ul li {
+            color: var(--text-secondary);
+            padding: 0.3rem 0;
+            font-size: 0.95rem;
             display: flex;
             align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-accent);
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            gap: 0.5rem;
         }
 
-        .theme-toggle:hover {
-            transform: scale(1.1) rotate(180deg);
+        /* ============================================================
+           FUTURE OUTLOOK BOXES — theme-aware
+           ============================================================ */
+        .outlook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
-        .table-responsive {
+        .outlook-box {
+            background: var(--bg-secondary);
+            padding: 1.75rem;
             border-radius: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-primary);
+        }
+
+        .outlook-box:hover { transform: translateY(-4px); box-shadow: var(--shadow-secondary); }
+
+        .outlook-box h4 {
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+        }
+
+        .outlook-box ul {
+            padding-left: 1.25rem;
+            margin: 0;
+        }
+
+        .outlook-box ul li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* ============================================================
+           REGIONAL HIGHLIGHT LIST — theme-aware
+           ============================================================ */
+        .region-list { list-style: none; padding: 0; margin: 0; }
+
+        .region-list li {
+            color: var(--text-secondary);
+            padding: 0.4rem 0;
+            line-height: 1.6;
+        }
+
+        .region-list li strong { color: var(--text-primary); }
+
+        /* ============================================================
+           CTA SECTION
+           ============================================================ */
+        .cta-section {
+            text-align: center;
+            padding: 4rem 3rem;
+            background: linear-gradient(135deg,
+                rgba(139, 92, 246, 0.08) 0%,
+                rgba(236, 72, 153, 0.08) 100%);
+            border-radius: 1.5rem;
+            margin-bottom: 4rem;
+            border: 1px solid var(--border-primary);
+            position: relative;
             overflow: hidden;
         }
 
-        .table {
-            color: var(--text-primary);
-            border-color: var(--border-primary);
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(139, 92, 246, 0.05) 0%,
+                rgba(236, 72, 153, 0.05) 100%);
         }
 
-        .table-dark {
-            --bs-table-bg: var(--bg-secondary);
-            --bs-table-border-color: var(--border-primary);
+        .cta-section > * { position: relative; z-index: 1; }
+
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
         }
 
-        .table thead {
-            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
-            color: white;
+        .cta-sub {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
-        .table tbody tr:hover {
-            background: var(--bg-secondary);
-            transition: all 0.2s ease;
+        /* ============================================================
+           BUTTONS — match home.html
+           ============================================================ */
+        .btn-main {
+            background: var(--gradient-accent);
+            color: white !important;
+            border: none;
+            padding: 0.9rem 2.25rem;
+            border-radius: 1rem;
+            font-weight: 600;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .footer {
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-main:hover::before { left: 100%; }
+
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(139, 92, 246, 0.35);
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
+        .modern-footer {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border-primary);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
+            padding: 2.5rem 2rem;
             text-align: center;
-            color: var(--text-secondary);
         }
 
-        .highlight {
-            background: linear-gradient(120deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
-            padding: 2rem;
+        .footer-text { color: var(--text-secondary); font-size: 0.95rem; margin: 0.3rem 0; }
+
+        .footer-link {
+            color: var(--text-accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: var(--text-primary); }
+
+        /* ============================================================
+           KEY FINDINGS CARD
+           ============================================================ */
+        .findings-card {
+            background: var(--highlight-bg);
+            border: 1px solid var(--border-primary);
+            border-left: 4px solid var(--highlight-border);
             border-radius: 1rem;
-            border-left: 4px solid #8b5cf6;
+            padding: 2rem;
         }
 
+        .findings-card h3 {
+            color: var(--text-primary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .findings-card ul {
+            color: var(--text-secondary);
+            padding-left: 1.5rem;
+            margin: 0;
+            line-height: 2.1;
+        }
+
+        .findings-card ul li strong { color: var(--text-primary); }
+
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
         @media (max-width: 768px) {
-            .page-title {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 1.75rem;
-            }
-
-            .chart-container {
-                height: 300px;
-            }
-
-            .container-fluid {
-                padding: 0 1rem;
-            }
+            .nav-links { display: none; }
+            .mobile-nav-toggle { display: flex; }
+            .page-header { padding: 4rem 1.5rem 3rem; }
+            .main-content { padding: 3rem 1.5rem; }
+            .chart-container { height: 280px; padding: 1rem; }
+            .ma-table { font-size: 0.85rem; }
+            .ma-table thead th, .ma-table tbody td { padding: 0.75rem; }
+            .cta-section { padding: 3rem 1.5rem; }
         }
 
-        @media (prefers-color-scheme: dark) {
-            body[data-theme="dark"] {
-                --bg-primary: #0f172a;
-                --bg-secondary: #1e293b;
-            }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .invest-grid, .outlook-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ============================================================
+           SCROLLBAR — matches home.html
+           ============================================================ */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--border-secondary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-accent); }
+
+        /* ============================================================
+           FADE-IN ANIMATION
+           ============================================================ */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
+
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/home">
-                <img src="{% static 'images/Q-Shaastra_ Logo_.png' %}" alt="Q-Shaastra">
+    <!-- ================================================================
+         NAVIGATION — matches home.html pattern exactly
+         ================================================================ -->
+    <nav class="modern-nav" id="navbar">
+        <div class="nav-container">
+            <a class="logo" href="{% url 'home' %}">
+                <img src="{% static 'images/Q-Shaastra_ Logo_.png' %}" alt="Q-Shaastra Logo">
                 Q-Shaastra
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home#market-analysis">Market Analysis</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home#dashboard">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
-                            <i class="fas fa-moon" id="themeIcon"></i>
-                        </button>
-                    </li>
-                </ul>
+
+            <div class="nav-links" id="navMenu">
+                <a href="{% url 'home' %}" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="{% url 'home' %}#market-analysis" class="nav-link">
+                    <i class="fas fa-chart-line"></i> Market Analysis
+                </a>
+                <a href="{% url 'home' %}#dashboard" class="nav-link">
+                    <i class="fas fa-th-large"></i> Dashboard
+                </a>
+                <a href="{% url 'home' %}#news" class="nav-link">
+                    <i class="fas fa-newspaper"></i> News
+                </a>
+                <!-- ✅ FIX 5: Theme toggle with correct working function -->
+                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+                    <i class="fas fa-moon" id="themeIcon"></i>
+                </button>
             </div>
+
+            <button class="mobile-nav-toggle" onclick="toggleMobileNav()">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
-    <!-- Page Header -->
+    <!-- ================================================================
+         PAGE HEADER
+         ================================================================ -->
     <div class="page-header">
-        <div class="container-fluid">
-            <h1 class="page-title"><i class="fas fa-chart-line"></i> Quantum Technology Market Analysis</h1>
-            <p class="page-subtitle">Comprehensive market insights, investment opportunities, and future trends across quantum technology sectors</p>
+        <div class="page-header-inner">
+            <h1 class="page-title">
+                <i class="fas fa-chart-line"></i> Quantum Technology Market Analysis
+            </h1>
+            <p class="page-subtitle">
+                Comprehensive market insights, investment opportunities, and future trends across all quantum technology sectors — 2025 through 2035.
+            </p>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="container-fluid" style="max-width: 1280px; margin: 0 auto;">
+    <!-- ================================================================
+         MAIN CONTENT
+         ================================================================ -->
+    <div class="main-content">
+
         <!-- Executive Summary -->
         <div class="section">
             <h2 class="section-title">📊 Executive Summary</h2>
-            <div class="stats-grid">
+
+            <div class="stats-grid fade-in">
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #8b5cf6;"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="stat-icon" style="color: #8b5cf6;"><i class="fas fa-dollar-sign"></i></div>
                     <div class="stat-label">Global Market Size 2025</div>
                     <div class="stat-value">$1.2T</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #ec4899;"><i class="fas fa-chart-line"></i></div>
-                    <div class="stat-label">Expected CAGR 2025-2035</div>
+                    <div class="stat-icon" style="color: #ec4899;"><i class="fas fa-chart-line"></i></div>
+                    <div class="stat-label">Expected CAGR 2025–2035</div>
                     <div class="stat-value">28.5%</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #06b6d4;"><i class="fas fa-industry"></i></div>
+                    <div class="stat-icon" style="color: #06b6d4;"><i class="fas fa-industry"></i></div>
                     <div class="stat-label">Active Companies</div>
                     <div class="stat-value">500+</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #f59e0b;"><i class="fas fa-rocket"></i></div>
+                    <div class="stat-icon" style="color: #f59e0b;"><i class="fas fa-rocket"></i></div>
                     <div class="stat-label">Investment 2025</div>
                     <div class="stat-value">$8.2B</div>
                 </div>
             </div>
 
-            <div class="card highlight">
-                <h3 style="margin: 0 0 1rem;">Key Findings</h3>
-                <ul style="margin: 0;">
+            <div class="findings-card fade-in">
+                <h3>📌 Key Findings</h3>
+                <ul>
                     <li><strong>Quantum Computing</strong> dominates with 35% market share and 32% annual growth</li>
                     <li><strong>Enterprise adoption</strong> accelerating: Cloud-based quantum services grew 45% YoY</li>
                     <li><strong>Emerging applications</strong> in AI, biotech, and security driving investment</li>
@@ -379,15 +869,20 @@
             <h2 class="section-title">💼 Market Segments Analysis</h2>
 
             <!-- Quantum Computing -->
-            <div class="card">
-                <h3 class="card-title"><i class="fas fa-microchip"></i> Quantum Computing (35% - $420B)</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Leader in quantum technology market with highest growth potential</p>
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">
+                    <span style="width:2.5rem;height:2.5rem;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:0.6rem;display:inline-flex;align-items:center;justify-content:center;color:white;">
+                        <i class="fas fa-microchip"></i>
+                    </span>
+                    Quantum Computing — 35% Market Share ($420B)
+                </h3>
+                <p class="ma-card-subtitle">Leader in quantum technology market with highest growth potential and enterprise investment.</p>
                 <div class="chart-container">
                     <canvas id="qcMarketChart"></canvas>
                 </div>
-                <div class="highlight" style="margin-bottom: 1rem;">
-                    <h4>Market Drivers:</h4>
-                    <ul style="margin-bottom: 0;">
+                <div class="highlight">
+                    <h4>Market Drivers</h4>
+                    <ul>
                         <li>Achieving 1000+ qubit systems by major players</li>
                         <li>IBM Quantum Network expansion to 150+ members</li>
                         <li>Google's quantum supremacy demonstrations</li>
@@ -398,17 +893,22 @@
             </div>
 
             <!-- Quantum Sensing -->
-            <div class="card">
-                <h3 class="card-title"><i class="fas fa-satellite"></i> Quantum Sensing & Metrology (28% - $337B)</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Fastest-growing segment with immediate practical applications</p>
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">
+                    <span style="width:2.5rem;height:2.5rem;background:linear-gradient(135deg,#f093fb,#f5576c);border-radius:0.6rem;display:inline-flex;align-items:center;justify-content:center;color:white;">
+                        <i class="fas fa-satellite"></i>
+                    </span>
+                    Quantum Sensing & Metrology — 28% Market Share ($337B)
+                </h3>
+                <p class="ma-card-subtitle">Fastest-growing segment with immediate practical applications across industries.</p>
                 <div class="chart-container">
                     <canvas id="qsMarketChart"></canvas>
                 </div>
-                <div class="highlight" style="margin-bottom: 1rem;">
-                    <h4>Key Applications:</h4>
-                    <ul style="margin-bottom: 0;">
-                        <li>Atomic clocks 1000x more accurate than current technology</li>
-                        <li>GPS-independent navigation systems for harsh environments</li>
+                <div class="highlight">
+                    <h4>Key Applications</h4>
+                    <ul>
+                        <li>Atomic clocks 1000× more accurate than current technology</li>
+                        <li>GPS-independent navigation for harsh environments</li>
                         <li>Medical imaging with unprecedented precision</li>
                         <li>Geological surveys and resource exploration</li>
                         <li>Gravitational wave detection networks</li>
@@ -417,15 +917,20 @@
             </div>
 
             <!-- Quantum Communication -->
-            <div class="card">
-                <h3 class="card-title"><i class="fas fa-wifi"></i> Quantum Communication (18% - $216B)</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Critical infrastructure for secure global communications</p>
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">
+                    <span style="width:2.5rem;height:2.5rem;background:linear-gradient(135deg,#06b6d4,#0891b2);border-radius:0.6rem;display:inline-flex;align-items:center;justify-content:center;color:white;">
+                        <i class="fas fa-wifi"></i>
+                    </span>
+                    Quantum Communication — 18% Market Share ($216B)
+                </h3>
+                <p class="ma-card-subtitle">Critical infrastructure for secure global communications and quantum internet.</p>
                 <div class="chart-container">
                     <canvas id="qcomMarketChart"></canvas>
                 </div>
-                <div class="highlight" style="margin-bottom: 1rem;">
-                    <h4>Growth Catalysts:</h4>
-                    <ul style="margin-bottom: 0;">
+                <div class="highlight">
+                    <h4>Growth Catalysts</h4>
+                    <ul>
                         <li>China's Quantum Key Distribution network expanding</li>
                         <li>NIST post-quantum cryptography standards finalized</li>
                         <li>5G/6G quantum integration protocols emerging</li>
@@ -436,20 +941,25 @@
             </div>
 
             <!-- Quantum Materials -->
-            <div class="card">
-                <h3 class="card-title"><i class="fas fa-flask-vial"></i> Quantum Materials (12% - $144B)</h3>
-                <p style="color: var(--text-secondary); margin-bottom: 2rem;">Foundation technology enabling all quantum systems</p>
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">
+                    <span style="width:2.5rem;height:2.5rem;background:linear-gradient(135deg,#f59e0b,#f97316);border-radius:0.6rem;display:inline-flex;align-items:center;justify-content:center;color:white;">
+                        <i class="fas fa-flask-vial"></i>
+                    </span>
+                    Quantum Materials — 12% Market Share ($144B)
+                </h3>
+                <p class="ma-card-subtitle">Foundation technology enabling all quantum systems and hardware innovation.</p>
                 <div class="chart-container">
                     <canvas id="qmatMarketChart"></canvas>
                 </div>
-                <div class="highlight" style="margin-bottom: 1rem;">
-                    <h4>Innovation Areas:</h4>
-                    <ul style="margin-bottom: 0;">
+                <div class="highlight">
+                    <h4>Innovation Areas</h4>
+                    <ul>
                         <li>Topological insulators for stable qubits</li>
                         <li>Room-temperature superconductor breakthroughs</li>
                         <li>Battery technology for electric vehicles (50% improvement)</li>
                         <li>Drug discovery acceleration through simulation</li>
-                        <li>Catalysts for industrial processes optimization</li>
+                        <li>Catalysts for industrial process optimization</li>
                     </ul>
                 </div>
             </div>
@@ -458,37 +968,39 @@
         <!-- Emerging Opportunities -->
         <div class="section">
             <h2 class="section-title">🚀 Emerging Opportunities</h2>
-            <div class="stats-grid">
+
+            <div class="stats-grid fade-in">
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #f59e0b;"><i class="fas fa-lightbulb"></i></div>
+                    <div class="stat-icon" style="color: #f59e0b;"><i class="fas fa-lightbulb"></i></div>
                     <div class="stat-label">Quantum AI</div>
                     <div class="stat-value">$85B</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">Expected by 2030</div>
+                    <div class="stat-sub">Expected by 2030</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #ec4899;"><i class="fas fa-dna"></i></div>
-                    <div class="stat-label">Biotech/Pharma</div>
+                    <div class="stat-icon" style="color: #ec4899;"><i class="fas fa-dna"></i></div>
+                    <div class="stat-label">Biotech / Pharma</div>
                     <div class="stat-value">$120B</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">Expected by 2030</div>
+                    <div class="stat-sub">Expected by 2030</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #06b6d4;"><i class="fas fa-shield-alt"></i></div>
+                    <div class="stat-icon" style="color: #06b6d4;"><i class="fas fa-shield-alt"></i></div>
                     <div class="stat-label">Quantum Security</div>
                     <div class="stat-value">$75B</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">Expected by 2030</div>
+                    <div class="stat-sub">Expected by 2030</div>
                 </div>
                 <div class="stat-card">
-                    <div style="font-size: 2.5rem; color: #10b981;"><i class="fas fa-solar-panel"></i></div>
+                    <div class="stat-icon" style="color: #10b981;"><i class="fas fa-solar-panel"></i></div>
                     <div class="stat-label">Energy & Climate</div>
                     <div class="stat-value">$95B</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem;">Expected by 2030</div>
+                    <div class="stat-sub">Expected by 2030</div>
                 </div>
             </div>
 
-            <div class="card">
-                <h3 class="card-title">Top Emerging Fields</h3>
-                <div class="table-responsive">
-                    <table class="table table-dark table-hover">
+            <!-- ✅ FIX 4: Theme-aware table — no Bootstrap table-dark class -->
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">Top Emerging Fields — Detailed Breakdown</h3>
+                <div class="ma-table-wrapper">
+                    <table class="ma-table">
                         <thead>
                             <tr>
                                 <th>Field</th>
@@ -503,35 +1015,35 @@
                                 <td><strong>Quantum Machine Learning</strong></td>
                                 <td>$12B</td>
                                 <td>$85B</td>
-                                <td>40%</td>
+                                <td><span class="cagr-badge">40%</span></td>
                                 <td>AI scalability, pattern recognition</td>
                             </tr>
                             <tr>
                                 <td><strong>Pharmaceutical Discovery</strong></td>
                                 <td>$18B</td>
                                 <td>$120B</td>
-                                <td>38%</td>
+                                <td><span class="cagr-badge">38%</span></td>
                                 <td>Protein folding, drug simulation</td>
                             </tr>
                             <tr>
                                 <td><strong>Finance & Risk Analysis</strong></td>
                                 <td>$15B</td>
                                 <td>$110B</td>
-                                <td>36%</td>
+                                <td><span class="cagr-badge">36%</span></td>
                                 <td>Portfolio optimization, fraud detection</td>
                             </tr>
                             <tr>
                                 <td><strong>Supply Chain Optimization</strong></td>
                                 <td>$20B</td>
                                 <td>$140B</td>
-                                <td>35%</td>
+                                <td><span class="cagr-badge">35%</span></td>
                                 <td>Logistics efficiency, cost reduction</td>
                             </tr>
                             <tr>
                                 <td><strong>Climate Modeling</strong></td>
                                 <td>$10B</td>
                                 <td>$95B</td>
-                                <td>42%</td>
+                                <td><span class="cagr-badge">42%</span></td>
                                 <td>Sustainability, green energy</td>
                             </tr>
                         </tbody>
@@ -543,37 +1055,38 @@
         <!-- Investment Landscape -->
         <div class="section">
             <h2 class="section-title">💰 Investment Landscape</h2>
-            <div class="card">
-                <h3 class="card-title">Major Investors & Companies</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 2rem;">
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #8b5cf6;">
-                        <h4 style="margin-bottom: 1rem;">Tech Giants</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>✓ IBM Quantum</li>
-                            <li>✓ Google Quantum AI</li>
-                            <li>✓ Microsoft Azure Quantum</li>
-                            <li>✓ Amazon Braket</li>
-                            <li>✓ Intel Quantum</li>
+
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">Major Investors & Companies</h3>
+                <div class="invest-grid">
+                    <div class="invest-box" style="border-left-color: #8b5cf6;">
+                        <h4><i class="fas fa-building" style="color:#8b5cf6;margin-right:0.5rem;"></i>Tech Giants</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> IBM Quantum</li>
+                            <li><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> Google Quantum AI</li>
+                            <li><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> Microsoft Azure Quantum</li>
+                            <li><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> Amazon Braket</li>
+                            <li><i class="fas fa-check-circle" style="color:#8b5cf6;"></i> Intel Quantum</li>
                         </ul>
                     </div>
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #ec4899;">
-                        <h4 style="margin-bottom: 1rem;">Quantum Startups</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>✓ IonQ - $500M+ valuation</li>
-                            <li>✓ Rigetti - Quantum processors</li>
-                            <li>✓ D-Wave - Quantum annealing</li>
-                            <li>✓ Quantinuum - Quantum computing</li>
-                            <li>✓ Atom Computing - Neutral atoms</li>
+                    <div class="invest-box" style="border-left-color: #ec4899;">
+                        <h4><i class="fas fa-seedling" style="color:#ec4899;margin-right:0.5rem;"></i>Quantum Startups</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> IonQ — $500M+ valuation</li>
+                            <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Rigetti — Quantum processors</li>
+                            <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> D-Wave — Quantum annealing</li>
+                            <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Quantinuum — Computing</li>
+                            <li><i class="fas fa-check-circle" style="color:#ec4899;"></i> Atom Computing — Neutral atoms</li>
                         </ul>
                     </div>
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #06b6d4;">
-                        <h4 style="margin-bottom: 1rem;">Funding Sources</h4>
-                        <ul style="list-style: none; padding-left: 0;">
-                            <li>✓ Venture Capital: $5.2B</li>
-                            <li>✓ Government Programs: $2.5B</li>
-                            <li>✓ Corporate R&D: $0.8B</li>
-                            <li>✓ Academic Grants: $0.5B</li>
-                            <li>✓ Strategic Partnerships: $0.2B</li>
+                    <div class="invest-box" style="border-left-color: #06b6d4;">
+                        <h4><i class="fas fa-coins" style="color:#06b6d4;margin-right:0.5rem;"></i>Funding Sources</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle" style="color:#06b6d4;"></i> Venture Capital: $5.2B</li>
+                            <li><i class="fas fa-check-circle" style="color:#06b6d4;"></i> Government Programs: $2.5B</li>
+                            <li><i class="fas fa-check-circle" style="color:#06b6d4;"></i> Corporate R&D: $0.8B</li>
+                            <li><i class="fas fa-check-circle" style="color:#06b6d4;"></i> Academic Grants: $0.5B</li>
+                            <li><i class="fas fa-check-circle" style="color:#06b6d4;"></i> Strategic Partnerships: $0.2B</li>
                         </ul>
                     </div>
                 </div>
@@ -583,17 +1096,19 @@
         <!-- Regional Analysis -->
         <div class="section">
             <h2 class="section-title">🌍 Regional Market Distribution</h2>
-            <div class="card">
+
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">Investment by Region</h3>
                 <div class="chart-container">
                     <canvas id="regionalChart"></canvas>
                 </div>
                 <div class="highlight">
-                    <h4>Regional Leaders:</h4>
-                    <ul>
-                        <li><strong>Asia-Pacific (45%):</strong> China, Japan, Korea leading quantum initiatives</li>
-                        <li><strong>North America (35%):</strong> US quantum ecosystems, Silicon Valley innovation</li>
-                        <li><strong>Europe (15%):</strong> EU Quantum Internet Alliance, Swiss leadership</li>
-                        <li><strong>Others (5%):</strong> Emerging markets in quantum adoption</li>
+                    <h4>Regional Leaders</h4>
+                    <ul class="region-list">
+                        <li><strong>Asia-Pacific (45%):</strong> China, Japan, Korea leading quantum national initiatives</li>
+                        <li><strong>North America (35%):</strong> US quantum ecosystems and Silicon Valley innovation hubs</li>
+                        <li><strong>Europe (15%):</strong> EU Quantum Internet Alliance and Swiss quantum leadership</li>
+                        <li><strong>Others (5%):</strong> Emerging markets in early quantum technology adoption</li>
                     </ul>
                 </div>
             </div>
@@ -601,12 +1116,13 @@
 
         <!-- Future Outlook -->
         <div class="section">
-            <h2 class="section-title">🔮 Future Outlook 2025-2035</h2>
-            <div class="card">
-                <h3 class="card-title">Strategic Predictions</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem;">
-                        <h4 style="color: #8b5cf6; margin-bottom: 1rem;">🎯 Near Term (2025-2027)</h4>
+            <h2 class="section-title">🔮 Future Outlook 2025–2035</h2>
+
+            <div class="ma-card fade-in">
+                <h3 class="ma-card-title">Strategic Predictions</h3>
+                <div class="outlook-grid">
+                    <div class="outlook-box" style="border-top: 3px solid #8b5cf6;">
+                        <h4 style="color:#8b5cf6;">🎯 Near Term (2025–2027)</h4>
                         <ul>
                             <li>1000+ qubit commercial systems</li>
                             <li>Quantum advantage in specific use cases</li>
@@ -614,8 +1130,8 @@
                             <li>Widespread cloud quantum access</li>
                         </ul>
                     </div>
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem;">
-                        <h4 style="color: #ec4899; margin-bottom: 1rem;">📈 Mid Term (2027-2030)</h4>
+                    <div class="outlook-box" style="border-top: 3px solid #ec4899;">
+                        <h4 style="color:#ec4899;">📈 Mid Term (2027–2030)</h4>
                         <ul>
                             <li>10,000+ stable qubits achieved</li>
                             <li>Error correction breakthroughs</li>
@@ -623,8 +1139,8 @@
                             <li>Quantum networks between cities</li>
                         </ul>
                     </div>
-                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem;">
-                        <h4 style="color: #06b6d4; margin-bottom: 1rem;">🚀 Long Term (2030-2035)</h4>
+                    <div class="outlook-box" style="border-top: 3px solid #06b6d4;">
+                        <h4 style="color:#06b6d4;">🚀 Long Term (2030–2035)</h4>
                         <ul>
                             <li>Practical quantum advantage everywhere</li>
                             <li>1M+ logical qubits possible</li>
@@ -636,168 +1152,305 @@
             </div>
         </div>
 
-        <!-- Call to Action -->
-        <div class="section" style="text-align: center; padding: 3rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); border-radius: 1rem; margin-bottom: 4rem;">
-            <h2 class="section-title" style="margin-bottom: 1rem;">Ready to Explore Quantum Opportunities?</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem;">Join the quantum revolution and stay updated with latest market insights</p>
-            <a href="/home#dashboard" class="btn btn-primary" style="font-size: 1.1rem;">
-                <i class="fas fa-arrow-right"></i> Explore More
+        <!-- CTA -->
+        <div class="cta-section fade-in">
+            <h2 class="cta-title">Ready to Explore Quantum Opportunities?</h2>
+            <p class="cta-sub">Join the quantum revolution and stay updated with the latest market insights</p>
+            <a href="{% url 'home' %}#dashboard" class="btn-main">
+                <i class="fas fa-arrow-right"></i> Explore Dashboard
             </a>
         </div>
-    </div>
+
+    </div><!-- /main-content -->
 
     <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Q-Shaastra | Quantum Technology Market Analysis</p>
-        <p>For more information, visit <a href="/home" style="color: var(--text-accent); text-decoration: none;">Q-Shaastra Dashboard</a></p>
+    <footer class="modern-footer">
+        <p class="footer-text">© 2025 CDAC-Patna | Q-Shaastra — Quantum Technology Market Analysis</p>
+        <p class="footer-text" style="margin-top:0.5rem;">
+            For more information, visit
+            <a href="{% url 'home' %}" class="footer-link">Q-Shaastra Dashboard</a>
+        </p>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
-        // Theme Toggle
+        // ================================================================
+        // ✅ FIX 6: THEME TOGGLE — matches home.html, updates navbar bg
+        // ================================================================
         function toggleTheme() {
             const body = document.body;
             const themeIcon = document.getElementById('themeIcon');
-            
+            const nav = document.getElementById('navbar');
+
             if (body.getAttribute('data-theme') === 'dark') {
                 body.removeAttribute('data-theme');
                 themeIcon.className = 'fas fa-moon';
+                if (nav) nav.style.background = 'rgba(248, 250, 252, 0.95)';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.setAttribute('data-theme', 'dark');
                 themeIcon.className = 'fas fa-sun';
+                if (nav) nav.style.background = 'rgba(30, 41, 59, 0.95)';
                 localStorage.setItem('theme', 'dark');
+            }
+
+            // Re-render charts with updated theme colors
+            updateChartTheme();
+        }
+
+        // Mobile nav toggle
+        function toggleMobileNav() {
+            const nav = document.getElementById('navMenu');
+            const isOpen = nav.style.display === 'flex';
+            if (isOpen) {
+                nav.style.display = 'none';
+            } else {
+                nav.style.cssText = `
+                    display: flex; flex-direction: column; position: absolute;
+                    top: 100%; left: 0; right: 0; z-index: 99;
+                    background: var(--bg-secondary); padding: 1.5rem 2rem;
+                    gap: 0.75rem; border-top: 1px solid var(--border-primary);
+                    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+                `;
             }
         }
 
-        // Load saved theme
-        window.addEventListener('DOMContentLoaded', function() {
+        // ================================================================
+        // DOMContentLoaded — restore theme + init charts + animations
+        // ================================================================
+        document.addEventListener('DOMContentLoaded', function () {
+
+            // Restore saved theme
             const savedTheme = localStorage.getItem('theme');
+            const nav = document.getElementById('navbar');
             if (savedTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
                 document.getElementById('themeIcon').className = 'fas fa-sun';
+                if (nav) nav.style.background = 'rgba(30, 41, 59, 0.95)';
             }
 
-            // Initialize Market Charts
-            initializeDetailedCharts();
+            // Initialize charts
+            initializeCharts();
+
+            // Scroll animations (IntersectionObserver)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const isDark = document.body.getAttribute('data-theme') === 'dark';
+                if (window.scrollY > 80) {
+                    nav.style.background = isDark ? 'rgba(30,41,59,0.98)' : 'rgba(248,250,252,0.98)';
+                    nav.style.boxShadow = '0 4px 6px -1px rgba(0,0,0,0.08)';
+                } else {
+                    nav.style.background = isDark ? 'rgba(30,41,59,0.95)' : 'rgba(248,250,252,0.95)';
+                    nav.style.boxShadow = 'none';
+                }
+            });
         });
 
-        function initializeDetailedCharts() {
-            const chartOptions = {
+        // ================================================================
+        // CHART COLOR HELPERS — theme-aware axis/grid colors
+        // ================================================================
+        function getChartColors() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            return {
+                text: isDark ? '#cbd5e1' : '#475569',
+                grid: isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)',
+                tick: isDark ? '#94a3b8' : '#64748b',
+            };
+        }
+
+        // Store chart instances for theme updates
+        const chartInstances = {};
+
+        function buildAxisOptions() {
+            const c = getChartColors();
+            return {
+                grid: { color: c.grid },
+                ticks: { color: c.tick, font: { family: 'Inter', size: 12 } },
+                border: { color: c.grid },
+            };
+        }
+
+        function buildLegendOptions() {
+            const c = getChartColors();
+            return {
+                display: true,
+                position: 'bottom',
+                labels: {
+                    color: c.text,
+                    font: { family: 'Inter', size: 12 },
+                    padding: 20,
+                }
+            };
+        }
+
+        // ✅ FIX 7: Update chart themes on toggle without full page reload
+        function updateChartTheme() {
+            Object.values(chartInstances).forEach(chart => {
+                const c = getChartColors();
+                if (chart.options.plugins?.legend?.labels) {
+                    chart.options.plugins.legend.labels.color = c.text;
+                }
+                if (chart.options.scales?.x) {
+                    chart.options.scales.x.ticks.color = c.tick;
+                    chart.options.scales.x.grid.color = c.grid;
+                }
+                if (chart.options.scales?.y) {
+                    chart.options.scales.y.ticks.color = c.tick;
+                    chart.options.scales.y.grid.color = c.grid;
+                }
+                chart.update('none');
+            });
+        }
+
+        // ================================================================
+        // ✅ FIX 8: initializeCharts — 'area' type removed, all use valid types
+        // ================================================================
+        function initializeCharts() {
+
+            const baseOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        display: true,
-                        position: 'bottom',
-                    }
-                }
+                    legend: buildLegendOptions(),
+                },
             };
 
-            // Quantum Computing Market
+            const scaleOptions = {
+                x: buildAxisOptions(),
+                y: buildAxisOptions(),
+            };
+
+            const years11 = ['2020','2021','2022','2023','2024','2025','2026','2027','2028','2029','2030'];
+
+            // 1. Quantum Computing — Line chart
             const qcCtx = document.getElementById('qcMarketChart');
             if (qcCtx) {
-                new Chart(qcCtx, {
+                chartInstances.qc = new Chart(qcCtx, {
                     type: 'line',
                     data: {
-                        labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                        labels: years11,
                         datasets: [{
                             label: 'Market Size (Billions $)',
                             data: [25, 45, 85, 180, 320, 420, 560, 750, 1000, 1350, 1800],
                             borderColor: '#667eea',
-                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
+                            backgroundColor: 'rgba(102, 126, 234, 0.12)',
+                            borderWidth: 3, fill: true, tension: 0.4,
+                            pointBackgroundColor: '#667eea',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2, pointRadius: 5
                         }]
                     },
-                    options: chartOptions
+                    options: { ...baseOptions, scales: scaleOptions }
                 });
             }
 
-            // Quantum Sensing Market
+            // 2. Quantum Sensing — Bar chart
             const qsCtx = document.getElementById('qsMarketChart');
             if (qsCtx) {
-                new Chart(qsCtx, {
+                chartInstances.qs = new Chart(qsCtx, {
                     type: 'bar',
                     data: {
-                        labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                        labels: years11,
                         datasets: [{
                             label: 'Market Size (Billions $)',
                             data: [20, 35, 65, 145, 280, 337, 420, 530, 680, 890, 1150],
-                            backgroundColor: 'rgba(240, 147, 251, 0.8)',
+                            backgroundColor: years11.map((_, i) =>
+                                `rgba(240, 147, 251, ${0.55 + i * 0.04})`
+                            ),
                             borderColor: '#f5576c',
-                            borderWidth: 2
+                            borderWidth: 2,
+                            borderRadius: 6,
                         }]
                     },
-                    options: chartOptions
+                    options: { ...baseOptions, scales: scaleOptions }
                 });
             }
 
-            // Quantum Communication Market
+            // 3. Quantum Communication — ✅ FIX: was 'area', now 'line' with fill: true
             const qcomCtx = document.getElementById('qcomMarketChart');
             if (qcomCtx) {
-                new Chart(qcomCtx, {
-                    type: 'area',
+                chartInstances.qcom = new Chart(qcomCtx, {
+                    type: 'line',
                     data: {
-                        labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                        labels: years11,
                         datasets: [{
                             label: 'Market Size (Billions $)',
                             data: [12, 20, 40, 85, 155, 216, 290, 385, 510, 680, 900],
                             borderColor: '#06b6d4',
-                            backgroundColor: 'rgba(6, 182, 212, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
+                            backgroundColor: 'rgba(6, 182, 212, 0.12)',
+                            borderWidth: 3, fill: true, tension: 0.4,
+                            pointBackgroundColor: '#06b6d4',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2, pointRadius: 5
                         }]
                     },
-                    options: chartOptions
+                    options: { ...baseOptions, scales: scaleOptions }
                 });
             }
 
-            // Quantum Materials Market
+            // 4. Quantum Materials — Line chart
             const qmatCtx = document.getElementById('qmatMarketChart');
             if (qmatCtx) {
-                new Chart(qmatCtx, {
+                chartInstances.qmat = new Chart(qmatCtx, {
                     type: 'line',
                     data: {
-                        labels: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+                        labels: years11,
                         datasets: [{
                             label: 'Market Size (Billions $)',
                             data: [15, 28, 52, 92, 125, 144, 175, 215, 265, 325, 400],
                             borderColor: '#f59e0b',
-                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                            borderWidth: 3,
-                            fill: true,
-                            tension: 0.4
+                            backgroundColor: 'rgba(245, 158, 11, 0.12)',
+                            borderWidth: 3, fill: true, tension: 0.4,
+                            pointBackgroundColor: '#f59e0b',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2, pointRadius: 5
                         }]
                     },
-                    options: chartOptions
+                    options: { ...baseOptions, scales: scaleOptions }
                 });
             }
 
-            // Regional Distribution
+            // 5. Regional — Doughnut (no scale options needed)
             const regionalCtx = document.getElementById('regionalChart');
             if (regionalCtx) {
-                new Chart(regionalCtx, {
+                chartInstances.regional = new Chart(regionalCtx, {
                     type: 'doughnut',
                     data: {
                         labels: ['Asia-Pacific', 'North America', 'Europe', 'Others'],
                         datasets: [{
                             data: [45, 35, 15, 5],
                             backgroundColor: [
-                                'rgba(139, 92, 246, 0.8)',
-                                'rgba(236, 72, 153, 0.8)',
-                                'rgba(6, 182, 212, 0.8)',
-                                'rgba(245, 158, 11, 0.8)'
+                                'rgba(139, 92, 246, 0.85)',
+                                'rgba(236, 72, 153, 0.85)',
+                                'rgba(6, 182, 212, 0.85)',
+                                'rgba(245, 158, 11, 0.85)',
                             ],
-                            borderColor: '#fff',
-                            borderWidth: 2
+                            borderColor: '#ffffff',
+                            borderWidth: 3,
+                            hoverOffset: 8,
                         }]
                     },
-                    options: chartOptions
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: buildLegendOptions(),
+                        },
+                        cutout: '60%',
+                    }
                 });
             }
         }
