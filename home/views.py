@@ -72,6 +72,57 @@ def contact(request):
     else:
         return render(request, 'contact.html')  # Render contact.html for GET requests
 
+def market_analysis(request):
+    """
+    Market Analysis view for quantum technology market insights
+    Displays comprehensive market data, trends, and investment opportunities
+    """
+    try:
+        market_data = {
+            'total_market_size': 1.2,  # in trillions USD
+            'cagr': 28.5,  # percentage
+            'active_companies': 500,
+            'investment_2025': 8.2,  # in billions USD
+            'segments': {
+                'quantum_computing': {
+                    'market_share': 35,
+                    'market_size': 420,
+                    'cagr': 32,
+                    'leaders': ['IBM', 'Google', 'IonQ']
+                },
+                'quantum_sensing': {
+                    'market_share': 28,
+                    'market_size': 337,
+                    'cagr': 26,
+                    'leaders': ['Honeywell', 'AOSense', 'M Squared']
+                },
+                'quantum_communication': {
+                    'market_share': 18,
+                    'market_size': 216,
+                    'cagr': 24,
+                    'leaders': ['Tencent', 'ID Quantique', 'Nucrypt']
+                },
+                'quantum_materials': {
+                    'market_share': 12,
+                    'market_size': 144,
+                    'cagr': 31,
+                    'leaders': ['Cambridge Quantum', 'Rigetti']
+                }
+            },
+            'emerging_opportunities': {
+                'quantum_ai': 85,
+                'biotech': 120,
+                'security': 75,
+                'energy': 95,
+                'finance': 110,
+                'manufacturing': 140
+            }
+        }
+        return render(request, 'market_analysis.html', {'market_data': market_data})
+    except Exception as e:
+        logger.error(f"Error loading market analysis: {str(e)}")
+        return redirect('home')
+
   
 #*************************Regitration and login  **********************
 def landing_page(request):

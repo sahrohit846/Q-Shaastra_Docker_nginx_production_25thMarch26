@@ -42,6 +42,7 @@ urlpatterns = [
     path("simulator",views.simulator,name='simulator'),
     path("about",views.about,name='about'),
     path("contact",views.contact,name='contact'),
+    path('market-analysis/', views.market_analysis, name='market_analysis'),
 
     path('send_message/', views.send_message, name="send_message"),
     path('profile/', views.profile_view, name='profile'),

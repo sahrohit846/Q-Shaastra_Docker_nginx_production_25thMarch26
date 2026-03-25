@@ -1030,7 +1030,7 @@
 
             <div class="nav-links" id ="navMenu" >
                 {#  <a href="#" class="nav-link">Home</a>  #}
-                <a href="#" class="nav-link"><i class="fas fa-chart-line"></i> Market Analysis</a>
+                <a href="#market-analysis" class="nav-link"><i class="fas fa-chart-line"></i> Market Analysis</a>
                 <a href="{% url 'about' %}" class="nav-link"><i class="fas fa-info-circle"></i> About Q-Shaastra</a>
                 <a href="#dashboard" class="nav-link"><i class="fas fa-home"></i> Dashboard</a>
                 <a href="#news" class="nav-link"><i class="fas fa-newspaper"></i> News</a>
@@ -1304,6 +1304,221 @@
                     Explore More Quantum News
                     <i class="fas fa-arrow-right"></i>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Analysis Section -->
+    <section id="market-analysis" class="content-section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+        <div class="container" style="max-width: 1280px; margin: 0 auto; padding: 0 2rem;">
+            <div class="section-header fade-in">
+                <h2 class="section-title">📊 Quantum Technology Market Analysis</h2>
+                <p class="section-subtitle">
+                    Comprehensive market insights, growth trends, and investment opportunities across quantum technology sectors
+                </p>
+            </div>
+
+            <!-- Market Overview Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <div class="card fade-in" style="text-align: center;">
+                    <div style="color: #8b5cf6; font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="card-title" style="font-size: 1.5rem;">Market Size 2025</h3>
+                    <p style="color: var(--text-secondary); font-size: 2rem; font-weight: 700; margin: 1rem 0;">$1.2 Trillion</p>
+                    <p class="card-description">Global quantum technology market valuation</p>
+                </div>
+
+                <div class="card fade-in" style="text-align: center;">
+                    <div style="color: #ec4899; font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="card-title" style="font-size: 1.5rem;">CAGR 2025-2035</h3>
+                    <p style="color: var(--text-secondary); font-size: 2rem; font-weight: 700; margin: 1rem 0;">28.5%</p>
+                    <p class="card-description">Projected annual growth rate</p>
+                </div>
+
+                <div class="card fade-in" style="text-align: center;">
+                    <div style="color: #06b6d4; font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="card-title" style="font-size: 1.5rem;">Key Players</h3>
+                    <p style="color: var(--text-secondary); font-size: 2rem; font-weight: 700; margin: 1rem 0;">500+</p>
+                    <p class="card-description">Companies investing in quantum tech</p>
+                </div>
+
+                <div class="card fade-in" style="text-align: center;">
+                    <div style="color: #f59e0b; font-size: 2.5rem; margin-bottom: 1rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="card-title" style="font-size: 1.5rem;">Funding 2025</h3>
+                    <p style="color: var(--text-secondary); font-size: 2rem; font-weight: 700; margin: 1rem 0;">$8.2B</p>
+                    <p class="card-description">Venture and government investment</p>
+                </div>
+            </div>
+
+            <!-- Market Segment Analysis -->
+            <div style="margin-bottom: 4rem;">
+                <h3 class="section-title" style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center;"><i class="fas fa-cube"></i> Quantum Technology Segments</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+                    <!-- Quantum Computing -->
+                    <div class="content-card slide-in-left">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem;">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div>
+                                <h4 class="content-title" style="margin: 0; font-size: 1.5rem;">Quantum Computing</h4>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">35% Market Share</p>
+                            </div>
+                        </div>
+                        <p class="card-description">Computing: $420B | CAGR: 32% | Leaders: IBM, Google, IonQ</p>
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+                            <canvas id="qcChart" style="max-height: 250px;"></canvas>
+                        </div>
+                        <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0;">
+                            <li>• Quantum processors with 1000+ qubits</li>
+                            <li>• Cloud-based quantum services grown 45%</li>
+                            <li>• Enterprise adoption accelerating</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quantum Sensing & Metrology -->
+                    <div class="content-card slide-in-right">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem;">
+                                <i class="fas fa-satellite"></i>
+                            </div>
+                            <div>
+                                <h4 class="content-title" style="margin: 0; font-size: 1.5rem;">Quantum Sensing</h4>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">28% Market Share</p>
+                            </div>
+                        </div>
+                        <p class="card-description">Sensing: $337B | CAGR: 26% | Leaders: Honeywell, AOSense, M Squared</p>
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+                            <canvas id="qsChart" style="max-height: 250px;"></canvas>
+                        </div>
+                        <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0;">
+                            <li>• Atomic clocks 1000x more accurate</li>
+                            <li>• Navigation systems for GPS-denied areas</li>
+                            <li>• Medical imaging applications emerging</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quantum Communication -->
+                    <div class="content-card slide-in-left">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem;">
+                                <i class="fas fa-wifi"></i>
+                            </div>
+                            <div>
+                                <h4 class="content-title" style="margin: 0; font-size: 1.5rem;">Quantum Communication</h4>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">18% Market Share</p>
+                            </div>
+                        </div>
+                        <p class="card-description">Communication: $216B | CAGR: 24% | Leaders: Tencent, ID Quantique, Nucrypt</p>
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+                            <canvas id="qcomChart" style="max-height: 250px;"></canvas>
+                        </div>
+                        <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0;">
+                            <li>• Quantum key distribution (QKD) networks</li>
+                            <li>• Post-quantum cryptography standards</li>
+                            <li>• Integration with 5G/6G networks</li>
+                        </ul>
+                    </div>
+
+                    <!-- Quantum Materials -->
+                    <div class="content-card slide-in-right">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div style="width: 4rem; height: 4rem; background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%); border-radius: 1rem; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.75rem;">
+                                <i class="fas fa-flask-vial"></i>
+                            </div>
+                            <div>
+                                <h4 class="content-title" style="margin: 0; font-size: 1.5rem;">Quantum Materials</h4>
+                                <p style="color: var(--text-secondary); margin: 0; font-size: 0.9rem;">12% Market Share</p>
+                            </div>
+                        </div>
+                        <p class="card-description">Materials: $144B | CAGR: 31% | Leaders: Cambridge Quantum, Rigetti</p>
+                        <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 0.75rem; margin-top: 1.5rem;">
+                            <canvas id="qmatChart" style="max-height: 250px;"></canvas>
+                        </div>
+                        <ul style="color: var(--text-secondary); padding-left: 1.5rem; margin: 1.5rem 0;">
+                            <li>• Topological insulators and superconductors</li>
+                            <li>• Battery technology breakthroughs</li>
+                            <li>• Material simulation for drug discovery</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Investment Opportunities & Trends -->
+            <div style="margin-top: 4rem;">
+                <h3 class="section-title" style="font-size: 2.5rem; margin-bottom: 3rem; text-align: center;"><i class="fas fa-coins"></i> Investment Opportunities & Emerging Fields</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-lightbulb" style="color: #f59e0b;"></i> Quantum AI</h4>
+                        <p class="card-description">Quantum machine learning and AI optimization showing 40% YoY growth. Major investment from tech giants.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $85B Expected by 2030
+                        </div>
+                    </div>
+
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-dna" style="color: #ec4899;"></i> Biotech Applications</h4>
+                        <p class="card-description">Quantum simulation for drug discovery and protein folding. Pharma industry investing heavily.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $120B Expected by 2030
+                        </div>
+                    </div>
+
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-shield-alt" style="color: #06b6d4;"></i> Quantum Security</h4>
+                        <p class="card-description">Post-quantum cryptography and quantum-safe infrastructure. Critical for cybersecurity.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $75B Expected by 2030
+                        </div>
+                    </div>
+
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-solar-panel" style="color: #10b981;"></i> Energy & Climate</h4>
+                        <p class="card-description">Quantum optimization for renewable energy and climate modeling. Eco-tech focus.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $95B Expected by 2030
+                        </div>
+                    </div>
+
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-bank" style="color: #8b5cf6;"></i> Financial Services</h4>
+                        <p class="card-description">Portfolio optimization and risk analysis. Banking/finance leading adoption.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $110B Expected by 2030
+                        </div>
+                    </div>
+
+                    <div class="card fade-in">
+                        <h4 class="content-title"><i class="fas fa-industry" style="color: #f97316;"></i> Manufacturing</h4>
+                        <p class="card-description">Supply chain optimization and process control. Industrial IoT integration.</p>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-primary); color: var(--text-accent); font-weight: 600;">
+                            $140B Expected by 2030
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div style="text-align: center; margin-top: 5rem; padding: 3rem; background: var(--bg-secondary); border-radius: 1.5rem; position: relative; overflow: hidden;">
+                <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%); z-index: 0;"></div>
+                <div style="position: relative; z-index: 1;">
+                    <h3 class="section-title" style="margin-bottom: 1.5rem;">Explore Detailed Market Analysis</h3>
+                    <p class="section-subtitle" style="margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+                        Get comprehensive reports, investment recommendations, and detailed trend analysis for quantum technology sectors.
+                    </p>
+                    <a href="{% url 'market_analysis' %}" class="btn btn-primary" style="font-size: 1.125rem;">
+                        <i class="fas fa-chart-bar"></i> View Full Market Report
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -1872,6 +2087,123 @@ function getCookie(name) {
                 }, 2000);
             });
         });
-    </script>
+
+        // Initialize Market Analysis Charts
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeMarketCharts();
+        });
+
+        function initializeMarketCharts() {
+            const chartOptions = {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                    }
+                }
+            };
+
+            // Quantum Computing Market Chart
+            const qcCtx = document.getElementById('qcChart');
+            if (qcCtx) {
+                new Chart(qcCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                        datasets: [{
+                            label: 'Market Size (Billions $)',
+                            data: [25, 45, 85, 180, 320, 420],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#667eea',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+
+            // Quantum Sensing Market Chart
+            const qsCtx = document.getElementById('qsChart');
+            if (qsCtx) {
+                new Chart(qsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                        datasets: [{
+                            label: 'Market Size (Billions $)',
+                            data: [20, 35, 65, 145, 280, 337],
+                            backgroundColor: [
+                                'rgba(240, 147, 251, 0.8)',
+                                'rgba(240, 147, 251, 0.7)',
+                                'rgba(240, 147, 251, 0.6)',
+                                'rgba(240, 147, 251, 0.8)',
+                                'rgba(240, 147, 251, 0.9)',
+                                'rgba(245, 87, 108, 0.8)'
+                            ],
+                            borderColor: '#f5576c',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+
+            // Quantum Communication Market Chart
+            const qcomCtx = document.getElementById('qcomChart');
+            if (qcomCtx) {
+                new Chart(qcomCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['QKD Networks', 'Post-Quantum Crypto', 'Quantum Networks', 'Other'],
+                        datasets: [{
+                            label: 'Market Distribution',
+                            data: [35, 30, 20, 15],
+                            backgroundColor: [
+                                'rgba(6, 182, 212, 0.8)',
+                                'rgba(34, 197, 94, 0.8)',
+                                'rgba(168, 85, 247, 0.8)',
+                                'rgba(251, 146, 60, 0.8)'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+
+            // Quantum Materials Market Chart
+            const qmatCtx = document.getElementById('qmatChart');
+            if (qmatCtx) {
+                new Chart(qmatCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['2020', '2021', '2022', '2023', '2024', '2025'],
+                        datasets: [{
+                            label: 'Market Size (Billions $)',
+                            data: [15, 28, 52, 92, 125, 144],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointBackgroundColor: '#f59e0b',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+        }
 </body>
 </html>
