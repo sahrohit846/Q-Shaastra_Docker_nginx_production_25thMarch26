@@ -73,3 +73,5 @@ docker-compose.override.yml
 # ========================
 *.bak
 *.tmp
+static/Ai_video/
+*.mp4
