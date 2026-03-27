@@ -39,6 +39,9 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost',
     'http://127.0.0.1',
     'http://0.0.0.0:8000',
+    'http://10.252.7.5:8000',
+    'https://10.252.7.5:8000',
+    'http://10.252.7.5',
 ]
 
 # CORS Settings
@@ -47,6 +50,9 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://localhost',
     'http://127.0.0.1',
+    'http://10.252.7.5:8000',
+    'https://10.252.7.5:8000',
+    'http://10.252.7.5',
 ]
 
 CORS_ALLOW_CREDENTIALS = True
