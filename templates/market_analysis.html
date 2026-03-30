@@ -208,12 +208,28 @@
     /* ══════════════════════════════════════════════════════
        MAIN TAB NAV  ← THE KEY FIX
     ══════════════════════════════════════════════════════ */
-    .main-tab-bar{
-        display:flex;gap:.5rem;flex-wrap:wrap;
-        border-bottom:2px solid var(--br-p);
-        margin-bottom:2.5rem;padding-bottom:0;
-        overflow-x:auto;scrollbar-width:thin;
-    }
+            .main-tab-bar{
+                position: sticky;
+                top: 68px; /* height of your navbar */
+                z-index: 150;
+
+                display:flex;
+                gap:.5rem;
+                flex-wrap:wrap;
+                overflow-x:auto;
+
+                background: var(--bg-p);
+                border-bottom:2px solid var(--br-p);
+
+                padding:.6rem 0.5rem;
+                margin-bottom:2rem;
+
+                backdrop-filter: blur(10px);
+            }
+
+            .main-tab-bar.scrolled {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
     .main-tab-btn{
         padding:.85rem 1.6rem;
         background:transparent;color:var(--tx-s);
@@ -258,7 +274,10 @@
     .card:hover::before{opacity:1;}
     .card:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--br-s);}
     .card-title{
-        font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;
+        font-family:'Space Grotesk',sans-serif;
+        font-size: clamp(1.4rem,3vw,2.1rem);
+        font-weight:800;color:var(--tx-p);
+        
         color:var(--tx-p);display:flex;align-items:center;gap:.65rem;margin-bottom:.65rem;
     }
     .card-sub{color:var(--tx-s);font-size:.9rem;margin-bottom:1.5rem;}
@@ -572,7 +591,123 @@
         .chart-wrap{height:250px;}
         .main-tab-btn{padding:.65rem 1rem;font-size:.82rem;}
     }
+
+
+                .trend-grid{
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+                gap:1rem;
+            }
+
+            .trend-card{
+                background:var(--bg-s);
+                border:1px solid var(--br-p);
+                border-radius:1rem;
+                padding:1rem;
+                transition:all .3s;
+            }
+
+            .trend-card:hover{
+                transform:translateY(-4px);
+                box-shadow:var(--sh-md);
+            }
+
+            .trend-head{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:.5rem;
+            }
+
+            .trend-title{
+                font-weight:700;
+                font-size:1.1rem;
+                color:var(--tx-p);
+            }
+
+            .trend-desc{
+                font-size:.8rem;
+                color:var(--tx-s);
+                margin-bottom:.5rem;
+            }
+
+            .trend-tag{
+                font-size:.75rem;
+                font-weight:600;
+                color:#8b5cf6;
+            }
+
+            /* BADGES */
+            .badge{
+                padding:.2rem .6rem;
+                border-radius:999px;
+                font-size:.7rem;
+                font-weight:700;
+            }
+
+            .badge.high{
+                background:rgba(239,68,68,0.15);
+                color:#ef4444;
+            }
+
+            .badge.medium{
+                background:rgba(245,158,11,0.15);
+                color:#f59e0b;
+            }
+
+
+
+            .region-grid{
+                display:grid;
+                grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+                gap:1rem;
+            }
+
+            .region-card{
+                background:var(--bg-s);
+                border:1px solid var(--br-p);
+                border-radius:1rem;
+                padding:1.2rem;
+                transition:all .3s;
+            }
+
+            .region-card:hover{
+                transform:translateY(-4px);
+                box-shadow:var(--sh-md);
+            }
+
+            .region-head{
+                font-weight:700;
+                margin-bottom:.6rem;
+                display:flex;
+                align-items:center;
+                gap:.5rem;
+                color:var(--tx-p);
+            }
+
+            .region-percent{
+                font-size:.8rem;
+                font-weight:700;
+                color:#8b5cf6;
+            }
+
+            .region-percent.pink{ color:#ec4899; }
+            .region-percent.cyan{ color:#06b6d4; }
+            .region-percent.orange{ color:#f59e0b; }
+
+            .region-card ul{
+                padding-left:1.2rem;
+                color:var(--tx-s);
+                font-size:.85rem;
+                line-height:1.8;
+            }
     </style>
+
+    <script>
+                document.querySelectorAll('.trend-card').forEach((card,i)=>{
+            card.style.animation = `fadePanel .4s ease ${i*0.05}s both`;
+            });
+    </script>
 </head>
 <body>
 
@@ -715,6 +850,36 @@
             </div>
         </div>
 
+         <div class="section">
+            <h2 class="section-title">🚀 Emerging Opportunities</h2>
+            <div class="opp-mini fade-in">
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#f59e0b;">💡</div><div class="opp-lbl">Quantum AI</div><div class="opp-val">$85B</div><div class="opp-sub">Expected by 2030</div></div>
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#ec4899;">🧬</div><div class="opp-lbl">Biotech / Pharma</div><div class="opp-val">$120B</div><div class="opp-sub">Expected by 2030</div></div>
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#06b6d4;">🛡️</div><div class="opp-lbl">Quantum Security</div><div class="opp-val">$75B</div><div class="opp-sub">Expected by 2030</div></div>
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#10b981;">☀️</div><div class="opp-lbl">Energy &amp; Climate</div><div class="opp-val">$95B</div><div class="opp-sub">Expected by 2030</div></div>
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#8b5cf6;">🏦</div><div class="opp-lbl">Financial Services</div><div class="opp-val">$110B</div><div class="opp-sub">Expected by 2030</div></div>
+                <div class="opp-mini-card"><div class="opp-ico" style="color:#f97316;">🏭</div><div class="opp-lbl">Manufacturing</div><div class="opp-val">$140B</div><div class="opp-sub">Expected by 2030</div></div>
+            </div>
+            <div class="opp-wrap fade-in">
+                <table class="opp-tbl">
+                    <thead><tr>
+                        <th class="sort" onclick="sortTbl(0)">Field <i class="fas fa-sort"></i></th>
+                        <th class="sort" onclick="sortTbl(1)">Current Invest <i class="fas fa-sort"></i></th>
+                        <th class="sort" onclick="sortTbl(2)">2030 Projection <i class="fas fa-sort"></i></th>
+                        <th class="sort" onclick="sortTbl(3)">CAGR <i class="fas fa-sort"></i></th>
+                        <th>Key Drivers</th>
+                    </tr></thead>
+                    <tbody id="oppTbl">
+                        <tr><td><strong>Quantum Machine Learning</strong></td><td>$12B</td><td>$85B</td><td><span class="pill">40%</span></td><td>AI scalability, pattern recognition</td></tr>
+                        <tr><td><strong>Pharmaceutical Discovery</strong></td><td>$18B</td><td>$120B</td><td><span class="pill">38%</span></td><td>Protein folding, drug simulation</td></tr>
+                        <tr><td><strong>Finance &amp; Risk Analysis</strong></td><td>$15B</td><td>$110B</td><td><span class="pill">36%</span></td><td>Portfolio optimization, fraud detection</td></tr>
+                        <tr><td><strong>Supply Chain Optimization</strong></td><td>$20B</td><td>$140B</td><td><span class="pill">35%</span></td><td>Logistics efficiency, cost reduction</td></tr>
+                        <tr><td><strong>Climate Modeling</strong></td><td>$10B</td><td>$95B</td><td><span class="pill">42%</span></td><td>Sustainability, green energy</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
         <div class="section">
             <h2 class="section-title">📅 Market Timeline &amp; Milestones</h2>
             <div class="card fade-in">
@@ -730,7 +895,10 @@
             </div>
         </div>
 
-    </div><!-- /panel-overview -->
+        
+
+    </div>
+    <!-- /panel-overview -->
 
     <!-- ══════════ TAB: SEGMENTS ══════════ -->
     <div class="tab-panel" id="panel-segments">
@@ -819,35 +987,7 @@
             </div>
         </div>
 
-        <div class="section">
-            <h2 class="section-title">🚀 Emerging Opportunities</h2>
-            <div class="opp-mini fade-in">
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#f59e0b;">💡</div><div class="opp-lbl">Quantum AI</div><div class="opp-val">$85B</div><div class="opp-sub">Expected by 2030</div></div>
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#ec4899;">🧬</div><div class="opp-lbl">Biotech / Pharma</div><div class="opp-val">$120B</div><div class="opp-sub">Expected by 2030</div></div>
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#06b6d4;">🛡️</div><div class="opp-lbl">Quantum Security</div><div class="opp-val">$75B</div><div class="opp-sub">Expected by 2030</div></div>
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#10b981;">☀️</div><div class="opp-lbl">Energy &amp; Climate</div><div class="opp-val">$95B</div><div class="opp-sub">Expected by 2030</div></div>
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#8b5cf6;">🏦</div><div class="opp-lbl">Financial Services</div><div class="opp-val">$110B</div><div class="opp-sub">Expected by 2030</div></div>
-                <div class="opp-mini-card"><div class="opp-ico" style="color:#f97316;">🏭</div><div class="opp-lbl">Manufacturing</div><div class="opp-val">$140B</div><div class="opp-sub">Expected by 2030</div></div>
-            </div>
-            <div class="opp-wrap fade-in">
-                <table class="opp-tbl">
-                    <thead><tr>
-                        <th class="sort" onclick="sortTbl(0)">Field <i class="fas fa-sort"></i></th>
-                        <th class="sort" onclick="sortTbl(1)">Current Invest <i class="fas fa-sort"></i></th>
-                        <th class="sort" onclick="sortTbl(2)">2030 Projection <i class="fas fa-sort"></i></th>
-                        <th class="sort" onclick="sortTbl(3)">CAGR <i class="fas fa-sort"></i></th>
-                        <th>Key Drivers</th>
-                    </tr></thead>
-                    <tbody id="oppTbl">
-                        <tr><td><strong>Quantum Machine Learning</strong></td><td>$12B</td><td>$85B</td><td><span class="pill">40%</span></td><td>AI scalability, pattern recognition</td></tr>
-                        <tr><td><strong>Pharmaceutical Discovery</strong></td><td>$18B</td><td>$120B</td><td><span class="pill">38%</span></td><td>Protein folding, drug simulation</td></tr>
-                        <tr><td><strong>Finance &amp; Risk Analysis</strong></td><td>$15B</td><td>$110B</td><td><span class="pill">36%</span></td><td>Portfolio optimization, fraud detection</td></tr>
-                        <tr><td><strong>Supply Chain Optimization</strong></td><td>$20B</td><td>$140B</td><td><span class="pill">35%</span></td><td>Logistics efficiency, cost reduction</td></tr>
-                        <tr><td><strong>Climate Modeling</strong></td><td>$10B</td><td>$95B</td><td><span class="pill">42%</span></td><td>Sustainability, green energy</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+       
 
     </div><!-- /panel-companies -->
 
@@ -857,7 +997,29 @@
             <h2 class="section-title">💰 Recent Funding Rounds</h2>
             <div class="fund-grid fade-in" id="fundGrid"></div>
         </div>
-    </div><!-- /panel-funding -->
+
+
+        <div class="section">
+          <h2 class="section-title">💼 Funding by Source</h2>
+
+
+                <div class="card fade-in">
+                    <p class="card-sub">
+                        How 2025 quantum capital is distributed across investor types
+                    </p>
+
+                    <div class="chart-wrap" style="height:300px;">
+                        <canvas id="fundingSourceChart"></canvas>
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
+    
+    
+    <!-- /panel-funding -->
 
     <!-- ══════════ TAB: REGIONAL ══════════ -->
     <div class="tab-panel" id="panel-regional">
@@ -876,7 +1038,89 @@
                 </div>
             </div>
         </div>
-    </div><!-- /panel-regional -->
+
+
+        <div class="section">
+    <h2 class="section-title">📍 Regional Investment Leaders</h2>
+
+
+            <div class="card fade-in">
+                <p class="card-sub">
+                    Key nations and initiatives driving quantum technology adoption
+                </p>
+
+                <div class="region-grid">
+
+                    <!-- ASIA -->
+                    <div class="region-card">
+                        <div class="region-head">
+                            🌏 Asia-Pacific <span class="region-percent">45%</span>
+                        </div>
+                        <ul>
+                            <li>China: $5B national quantum initiative</li>
+                            <li>Japan: Quantum Innovation Strategy 2030</li>
+                            <li>South Korea: Quantum Computing Act</li>
+                            <li>India: National Quantum Mission ($730M)</li>
+                            <li>Singapore: National Quantum Strategy</li>
+                        </ul>
+                    </div>
+
+                    <!-- NORTH AMERICA -->
+                    <div class="region-card">
+                        <div class="region-head">
+                            🌎 North America <span class="region-percent pink">35%</span>
+                        </div>
+                        <ul>
+                            <li>USA: National Quantum Initiative Act</li>
+                            <li>DARPA Quantum Benchmarking program</li>
+                            <li>DOE $1.8B quantum research centers</li>
+                            <li>Canada: Quantum Strategy ($360M)</li>
+                            <li>Silicon Valley private ecosystem</li>
+                        </ul>
+                    </div>
+
+                    <!-- EUROPE -->
+                    <div class="region-card">
+                        <div class="region-head">
+                            🌍 Europe <span class="region-percent cyan">15%</span>
+                        </div>
+                        <ul>
+                            <li>EU Quantum Flagship (€1B)</li>
+                            <li>European Quantum Internet Alliance</li>
+                            <li>UK National Quantum Strategy (£2.5B)</li>
+                            <li>Germany Quantum Computing roadmap</li>
+                            <li>Netherlands — QuTech center</li>
+                        </ul>
+                    </div>
+
+                    <!-- OTHERS -->
+                    <div class="region-card">
+                        <div class="region-head">
+                            🌐 Others <span class="region-percent orange">5%</span>
+                        </div>
+                        <ul>
+                            <li>Israel: Quantum research excellence</li>
+                            <li>Australia: Quantum Strategy</li>
+                            <li>UAE: National Quantum Program</li>
+                            <li>Brazil: Quantum Computing initiative</li>
+                            <li>Emerging markets rapid adoption</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+</div>
+
+
+
+
+    </div>
+    
+    
+    
+    <!-- /panel-regional -->
 
     <!-- ══════════ TAB: OUTLOOK ══════════ -->
     <div class="tab-panel" id="panel-outlook">
@@ -891,6 +1135,99 @@
                 </div>
             </div>
         </div>
+                <div class="section">
+            <h2 class="section-title">📡 Market Trends</h2>
+
+                
+                <div class="card fade-in">
+                   
+                    <div class="trend-grid">
+
+                        <!-- ITEM -->
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    🚀 Enterprise Adoption Accelerating
+                                </div>
+                                <span class="badge high">HIGH</span>
+                            </div>
+                            <p class="trend-desc">
+                                Major enterprises piloting quantum applications for optimisation; cloud quantum grew 45% YoY.
+                            </p>
+                            <span class="trend-tag">Adoption</span>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    🔬 Error Correction Breakthroughs
+                                </div>
+                                <span class="badge high">HIGH</span>
+                            </div>
+                            <p class="trend-desc">
+                                Multiple companies achieving milestones in logical qubit implementations and surface codes.
+                            </p>
+                            <span class="trend-tag">Technology</span>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    🏛️ Government Investment Surge
+                                </div>
+                                <span class="badge medium">MEDIUM</span>
+                            </div>
+                            <p class="trend-desc">
+                                National quantum initiatives driving funding across US, EU, China, and India.
+                            </p>
+                            <span class="trend-tag">Policy</span>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    ☁️ Quantum-as-a-Service Growth
+                                </div>
+                                <span class="badge medium">MEDIUM</span>
+                            </div>
+                            <p class="trend-desc">
+                                Cloud-based quantum computing services expanding market access for SMEs and academia.
+                            </p>
+                            <span class="trend-tag">Business</span>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    🛡️ Post-Quantum Cryptography Mandates
+                                </div>
+                                <span class="badge high">HIGH</span>
+                            </div>
+                            <p class="trend-desc">
+                                NIST finalised PQC standards; global enterprises racing to quantum-safe infrastructure.
+                            </p>
+                            <span class="trend-tag">Security</span>
+                        </div>
+
+                        <div class="trend-card">
+                            <div class="trend-head">
+                                <div class="trend-title">
+                                    👩‍💻 Talent & Skills Gap Widening
+                                </div>
+                                <span class="badge medium">MEDIUM</span>
+                            </div>
+                            <p class="trend-desc">
+                                Demand for quantum engineers outpaces supply; 50,000+ open roles globally in 2025.
+                            </p>
+                            <span class="trend-tag">Workforce</span>
+                        </div>
+
+                    </div>
+                </div>
+            
+
+</div>
+
     </div><!-- /panel-outlook -->
 
     <!-- CTA -->
@@ -1339,7 +1676,75 @@ document.addEventListener('DOMContentLoaded', () => {
                 /* INIT ON LOAD */
                 document.addEventListener("DOMContentLoaded", () => {
                     initOverviewChart();
+                    initFundingSourceChart();  // New chart for funding sources in the Outlook tab  
                 });
-            </script>
+
+                window.addEventListener("scroll", () => {
+                    const tabBar = document.querySelector(".main-tab-bar");
+                    if (window.scrollY > 100) {
+                        tabBar.classList.add("scrolled");
+                    } else {
+                        tabBar.classList.remove("scrolled");
+                    }
+                });
+         
+
+         
+                function initFundingSourceChart(){
+                    const ctx = document.getElementById('fundingSourceChart');
+                    if (!ctx) return;
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: [
+                                'Venture Capital',
+                                'Government Programs',
+                                'Corporate R&D',
+                                'Academic Grants',
+                                'Strategic Partnerships'
+                            ],
+                            datasets: [{
+                                data: [5.2, 2.5, 0.8, 0.5, 0.2],
+                                backgroundColor: [
+                                    '#8b5cf6',
+                                    '#ec4899',
+                                    '#06b6d4',
+                                    '#f59e0b',
+                                    '#10b981'
+                                ],
+                                borderRadius: 10,
+                                barThickness: 22
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y', // horizontal bars
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false }
+                            },
+                            scales: {
+                                x: {
+                                    ticks: {
+                                        color: getComputedStyle(document.body).getPropertyValue('--tx-t')
+                                    },
+                                    grid: {
+                                        color: 'rgba(148,163,184,0.1)'
+                                    }
+                                },
+                                y: {
+                                    ticks: {
+                                        color: getComputedStyle(document.body).getPropertyValue('--tx-s')
+                                    },
+                                    grid: {
+                                        display: false
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+           </script>
 </body>
 </html>

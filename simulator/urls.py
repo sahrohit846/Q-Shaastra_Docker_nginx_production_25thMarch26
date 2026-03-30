@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import RedirectView
 
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path, include
 admin.site.site_header = "Quantum Shaastra Admin"
 admin.site.site_title = "Quantum Shaastra Database"
 admin.site.index_title = "Welcome to Quantum_Shaastra Admin Portal "
@@ -26,8 +27,10 @@ admin.site.index_title = "Welcome to Quantum_Shaastra Admin Portal "
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Favicon redirect
+    path('favicon.ico', RedirectView.as_view(url='/static/favicons/favicon.ico', permanent=True)),
     # path('User_Dashboard/', user.site.urls)
-    path('',include('home.urls'))
+    path('', include('home.urls'))
 ]
 
 if settings.DEBUG:
